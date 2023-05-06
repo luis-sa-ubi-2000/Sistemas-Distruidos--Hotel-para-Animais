@@ -27,3 +27,11 @@ Trabalho prático de SD - Aplicação Web em Jakarta EE, usando a framework Spri
 
 
 
+## Configurações
+
+- Base de dados
+  - Nome: db_hotel
+  - User: [ userhotel / pass: 123456 ]
+
+
+
