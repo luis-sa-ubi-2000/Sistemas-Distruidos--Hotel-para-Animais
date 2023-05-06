@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.ArrayList;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -18,7 +20,7 @@ public class Client {
     private String email;
    
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    private List<Pet> pets;
+    private ArrayList<Pet> pets;
 
 	public Long getId() {
 		return id;
@@ -60,19 +62,15 @@ public class Client {
 		this.email = email;
 	}
 
-	public List<Pet> getPets() {
+	public ArrayList<Pet> getPets() {
 		return pets;
 	}
 
-	public void setPets(List<Pet> pets) {
+	public void setPets(ArrayList<Pet> pets) {
 		this.pets = pets;
 	}
 
-	@Override
-	public String toString() {
-		return "Client [id=" + id + ", name=" + name + ", address=" + address + ", phone=" + phone + ", email=" + email
-				+ "]";
-	}
+
 	
 	
     
