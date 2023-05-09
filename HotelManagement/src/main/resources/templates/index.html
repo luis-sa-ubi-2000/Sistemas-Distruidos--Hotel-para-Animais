@@ -9,18 +9,20 @@
 <div align="center">
   <h1>Clients List</h1>
 
-  <table>
+  <table border = 1>
       <thead>
         <tr>
-          <th> Client First Name</th>
-          <th> Client Last Name</th>
+          <th> Client Name</th>
+          <th> Client Phone</th>
+          <th> Client Address</th>
           <th> Client Email</th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="client : ${listClients}">
-          <td th:text="${client.firstName}"></td>
-          <td th:text="${client.LastName}"></td>
+          <td th:text="${client.name}"></td>
+          <td th:text="${client.phone}"></td>
+          <td th:text="${client.address}"></td>
           <td th:text="${client.email}"></td>
         </tr>
       </tbody>
