@@ -37,6 +37,7 @@ a {
   border-radius: 0.25em;
 }
 
+
 a:hover {
   background-color: #005ea8;
 }
@@ -71,12 +72,17 @@ thead {
 .mb-2 {
   margin-bottom: 1rem;
 }
+
+.add-customer-link {
+  margin-bottom: 10px;
+}
+
 </style>
 </head>
 <body>
 <div>
  	<h1> Customer List </h1>
- 	<a th:href="@{/showNewClientForm}"> Add Customer </a>
+ 	<a th:href="@{/showNewClientForm}"  class="add-customer-link"> Add Customer </a>
  	<table border="1" class="table table-striped table-responsive-md">
  		<thead>
  			<tr>
