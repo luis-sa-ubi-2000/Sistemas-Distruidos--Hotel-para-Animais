@@ -3,19 +3,89 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Pet Hotel - Customer Page </title>
+<style> 
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid #ccc;
+  margin: 20px 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input[type="text"], input[type="number"] {
+  font-size: 16px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+  max-width: 100%;
+}
+
+button[type="submit"] {
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #0062cc;
+}
+
+a {
+  font-size: 16px;
+  color: #007bff;
+  text-decoration: none;
+  margin-top: 20px;
+  display: block;
+  text-align: center;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+</style>
 </head>
 <body>
 <div>
- <h1>Update Customer</h1>
+ <h1 align = "center">Customer Page</h1>
  <hr>
- <form action="#" th:action="@{/showUpdateDepForm}" th:object="${client}"
+ <h2 align = "center" >Upgrade Customer</h2>
+ <form action="#" th:action="@{/saveClient}" th:object="${update_client}"
 method="POST">
- <!-- Add hidden form field to handle update -->
+<!-- Add hidden form field to handle update -->
+<input type="hidden" th:field="*{id}" />
  <input type="text" th:field="*{address}" placeholder="Address" >
  <input type="text" th:field="*{email}" placeholder="Email" >
  <input type="text" th:field="*{name}" placeholder="Name" >
  <input type="number" th:field="*{phone}" placeholder="Phone" >
- <button type="submit" >Update Customer</button>
+ <button type="submit" > Update Customer</button>
  </form>
  <hr>
  <a th:href="@{/showClient}"> Back to Customer List</a>

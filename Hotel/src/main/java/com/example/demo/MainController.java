@@ -37,7 +37,7 @@ public class MainController {
 	public String showNewClientForm(Model model) {
 	 // create model attribute to bind form data
 	 Client client = new Client();
-	 model.addAttribute("newclient", client);
+	 model.addAttribute("new_client", client);
 	 return "new_client";
 	}
 	
@@ -64,7 +64,7 @@ public class MainController {
 			throw new RuntimeException(" Client not found for id :: " + id);
 		}
 		// set department as a model attribute to pre-populate the form
-		model.addAttribute("client", client);
+		model.addAttribute("update_client", client);
 		return "update_client";
 	}
 	
