@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Pet Hotel - Customer Page </title>
+</head>
+<body>
+<div>
+ <h1>New Customer</h1>
+ <hr>
+ <h2>Save Customer</h2>
+ <form action="#" th:action="@{/saveClient}" th:object="${newclient}"
+method="POST">
+
+ <input type="text" th:field="*{address}" placeholder="Address" >
+ <input type="text" th:field="*{email}" placeholder="Email" >
+ <input type="text" th:field="*{name}" placeholder="Name" >
+ <input type="number" th:field="*{phone}" placeholder="Phone" >
+ <button type="submit" > Save Customer</button>
+ </form>
+ <hr>
+ <a th:href="@{/showClient}"> Back to Department List</a>
+</div>
+</body>
+</html>

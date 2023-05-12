@@ -1,0 +1,36 @@
+/* Define as fontes e cores padrão */
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Estilize os títulos */
+h1, h2 {
+  text-align: center;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+
+/* Estilize os links */
+a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Adicione um pouco de espaço entre os links */
+a + a {
+  margin-left: 1em;
+}
