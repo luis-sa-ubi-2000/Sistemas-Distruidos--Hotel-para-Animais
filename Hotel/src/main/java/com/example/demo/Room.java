@@ -19,7 +19,7 @@ public class Room {
 
     private double preco;
 
-    
+    private String capacidade;
 
 	public Long getId() {
 		return id;

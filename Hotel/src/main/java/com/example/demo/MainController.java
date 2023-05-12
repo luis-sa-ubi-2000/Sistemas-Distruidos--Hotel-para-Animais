@@ -15,7 +15,7 @@ public class MainController {
 	@GetMapping(path="/")
 	public String getAllDeps (Model model) {
 		model.addAttribute("ListClients" , clientRepository.findAll());
-		return "index";
+		return "mainpage";
 	}
 	
 }

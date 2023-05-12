@@ -15,8 +15,18 @@ public class Pet {
     private int age;
 
     private String species;
+    
+    private String race;
 
-    @ManyToOne
+    public String getRace() {
+		return race;
+	}
+
+	public void setRace(String race) {
+		this.race = race;
+	}
+
+	@ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
 
@@ -62,16 +72,11 @@ public class Pet {
         this.client = client;
     }
 
-    // toString method
+	@Override
+	public String toString() {
+		return "Pet [id=" + id + ", name=" + name + ", age=" + age + ", species=" + species + ", race=" + race
+				+ ", client=" + client + "]";
+	}
 
-    @Override
-    public String toString() {
-        return "Pet{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", species='" + species + '\'' +
-                ", client=" + client +
-                '}';
-    }
+    
 }
