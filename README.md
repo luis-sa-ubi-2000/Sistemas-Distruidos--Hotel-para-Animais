@@ -9,7 +9,7 @@ Trabalho prático de SD - Aplicação Web em Jakarta EE, usando a framework Spri
 - **Extra** -> cuidados Veterinários: oferecer serviços de saúde, como consultas e exames, vacinação, tratamento de doenças e feridas, entre outros.
 
 ### Entidades
-- [ ] Cliente: cada proprietário de animal de estimação é um cliente, com informações como nome, endereço, telefone e e-mail. [João]
+- [x] Cliente: cada proprietário de animal de estimação é um cliente, com informações como nome, endereço, telefone e e-mail. [João]
 - [ ] Animal: cada animal hospedado no hotel é uma entidade, com informações como nome, espécie, raça e idade. [João]
 - [ ] Quarto: cada quarto ou acomodação oferecido pelo hotel é uma entidade, com informações como número, tipo, capacidade e preço. [Luís]
 
