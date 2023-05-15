@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Pet Hotel - Pet Page</title>
+<title>Pet Hotel - Pet's Page</title>
  <style>
 /* Define as fontes e cores padrão */
 body {
@@ -77,11 +77,43 @@ thead {
   margin-bottom: 10px;
 }
 
+.back-to-main-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5em;
+            background-color: #000000;
+            color: #fbfbfb;
+            text-decoration: none;
+            border: none;
+            border-radius: 0.25em;
+            cursor: pointer;
+      }
+
+      .back-to-main-button:hover {
+          background-color: #005ea8;
+      }
+
+          .back-to-main-button:active {
+            background-color: #003d80;
+          }
+
+          .back-to-main-button i {
+            margin-right: 0.5em;
+          }
+
 </style>
 </head>
 <body>
 <div>
- 	<h1> Pet List </h1>
+  <a th:href="@{/}" class="back-to-main-button">
+    <i class="fas fa-arrow-left"></i>
+    Back to Main Menu
+  </a>
+ 	<h1> Pet's List </h1>
  	<a th:href="@{/showNewPetForm}"  class="add-customer-link"> Add Pet</a>
  	<table border="1" class="table table-striped table-responsive-md">
  		<thead>

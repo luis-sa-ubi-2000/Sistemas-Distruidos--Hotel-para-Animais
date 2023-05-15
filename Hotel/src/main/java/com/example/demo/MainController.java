@@ -48,7 +48,7 @@ public class MainController {
 	
 	@PostMapping("/saveClient")
 	public String saveClient (@ModelAttribute("newclient") Client client ) {
-		// save dep to database
+		// save client to database
 		clientRepository.save(client);
 		return "redirect:/showClient";
 	}
@@ -60,7 +60,7 @@ public class MainController {
 	}
 	
 	@GetMapping("/showUpdateClientForm/{id}")
-	public String showUpdateDepForm(@PathVariable(value = "id") Long id, Model model) {
+	public String showUpdateClientForm(@PathVariable(value = "id") Long id, Model model) {
 		Optional <Client> optional = clientRepository.findById(id);
 		Client client = null;
 		if (optional.isPresent()) {
@@ -68,7 +68,7 @@ public class MainController {
 		} else {
 			throw new RuntimeException(" Client not found for id :: " + id);
 		}
-		// set department as a model attribute to pre-populate the form
+		// set client as a model attribute to pre-populate the form
 		model.addAttribute("update_client", client);
 		return "update_client";
 	}
@@ -81,44 +81,51 @@ public class MainController {
 			return "pet";
 		}
 		
-		/*
 		
-		@GetMapping("/showNewClientForm")
-		public String showNewClientForm(Model model) {
-		 // create model attribute to bind form data
-		 Client client = new Client();
-		 model.addAttribute("new_client", client);
-		 return "new_client";
+		
+		@GetMapping("/showNewPetForm")
+		public String showNewPetForm(Model model) {
+		 model.addAttribute("ListClients" , clientRepository.findAll());
+		 Pet pet = new Pet();
+		 model.addAttribute("new_pet", pet);
+		 return "new_pet";
 		}
 		
-		@PostMapping("/saveClient")
-		public String saveClient (@ModelAttribute("newclient") Client client ) {
-			// save dep to database
-			clientRepository.save(client);
-			return "redirect:/showClient";
+		
+		
+		@PostMapping("/savePet")
+		public String savePet (@ModelAttribute("newclient") Pet pet ) {
+			// save pet to database
+			petRepository.save(pet);
+			return "redirect:/showPet";
 		}
 		
-		@GetMapping("/deleteClient/{id}")
-		public String deleteClient(@PathVariable(value = "id") Long id) {
-		 clientRepository.deleteById(id);
-			return "redirect:/showClient";
+		
+		
+		@GetMapping("/deletePet/{id}")
+		public String deletePet(@PathVariable(value = "id") Long id) {
+		 petRepository.deleteById(id);
+			return "redirect:/showPet";
 		}
 		
-		@GetMapping("/showUpdateClientForm/{id}")
-		public String showUpdateDepForm(@PathVariable(value = "id") Long id, Model model) {
-			Optional <Client> optional = clientRepository.findById(id);
-			Client client = null;
+		
+		
+		@GetMapping("/showUpdatePetForm/{id}")
+		public String showUpdatePetForm(@PathVariable(value = "id") Long id, Model model) {
+			Optional <Pet> optional = petRepository.findById(id);
+			Pet pet = null;
 			if (optional.isPresent()) {
-				client = optional.get();
+				pet = optional.get();
 			} else {
-				throw new RuntimeException(" Client not found for id :: " + id);
+				throw new RuntimeException(" Pet not found for id :: " + id);
 			}
-			// set department as a model attribute to pre-populate the form
-			model.addAttribute("update_client", client);
-			return "update_client";
+			// set pet as a model attribute to pre-populate the form
+			model.addAttribute("update_pet", pet);
+			model.addAttribute("ListClients" , clientRepository.findAll());
+			return "update_pet";
 		}
 		
-		*/
+		
 	
 	
 }

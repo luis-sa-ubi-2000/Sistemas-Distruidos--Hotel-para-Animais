@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Pet Hotel - Customer Page </title>
+<title>Pet Hotel - Customer's Page </title>
 <style> 
 body {
   font-family: Arial, sans-serif;
@@ -74,7 +74,7 @@ a:hover {
 </head>
 <body>
 <div>
- <h1 align = "center">Customer Page</h1>
+ <h1 align = "center">Customer's Page</h1>
  <hr>
  <h2 align = "center" >Add a new Customer</h2>
  <form action="#" th:action="@{/saveClient}" th:object="${new_client}"
@@ -87,7 +87,7 @@ method="POST">
  <button type="submit" > Save Customer</button>
  </form>
  <hr>
- <a th:href="@{/showClient}"> Back to Customer List</a>
+ <a th:href="@{/showClient}"> Back to Customer's List</a>
 </div>
 </body>
 </html>
