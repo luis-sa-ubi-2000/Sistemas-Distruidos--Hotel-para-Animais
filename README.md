@@ -11,7 +11,7 @@ Trabalho prático de SD - Aplicação Web em Jakarta EE, usando a framework Spri
 ### Entidades
 - [x] Cliente: cada proprietário de animal de estimação é um cliente, com informações como nome, endereço, telefone e e-mail. [João]
 - [x] Animal: cada animal hospedado no hotel é uma entidade, com informações como nome, espécie, raça e idade. [João]
-- [ ] Quarto: cada quarto ou acomodação oferecido pelo hotel é uma entidade, com informações como número, tipo, capacidade, disponibilidade e preço. [Luís]
+- [x] Quarto: cada quarto ou acomodação oferecido pelo hotel é uma entidade, com informações como número, tipo, capacidade, disponibilidade e preço. [Luís]
 
 
 ### Operações que permitem a Gestão dos Serviços Fornecidos:
