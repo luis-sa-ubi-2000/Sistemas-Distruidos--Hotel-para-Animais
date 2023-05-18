@@ -21,6 +21,9 @@ public class MainController {
 	@Autowired
 	private PetRepository petRepository;
 	
+	@Autowired
+	private PetRepository lodgingRepository;
+	
 	
 	@GetMapping(path="/")
 	public String showMainPage(Model model) {
@@ -133,8 +136,8 @@ public class MainController {
 	
 		@GetMapping(path="/showLodgings")
 		public String showLodgings(Model model) {
-			model.addAttribute("ListLodgings" , clientRepository.findAll());
-			return "client";
+			model.addAttribute("ListLodgings" , lodgingRepository.findAll());
+			return "lodgings";
 		}
 	
 }

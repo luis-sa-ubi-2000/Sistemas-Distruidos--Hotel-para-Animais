@@ -1,4 +1,3 @@
-package com.example.demo;
 
 
 import jakarta.persistence.*;
@@ -9,13 +8,15 @@ public class Lodging {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "idPet")
-    private Long idPet;
+    @ManyToOne
+    @JoinColumn(name = "idPet")
+    private Pet pet;
 
-    @Column(name = "idRoom")
-    private Long idRoom;
+    @ManyToOne
+    @JoinColumn(name = "idRoom")
+    private Room room;
 
-    // Construtores, getters e setters
+    // Constructors, getters and setters
 
     public Long getId() {
         return id;
@@ -25,26 +26,27 @@ public class Lodging {
         this.id = id;
     }
 
-    public Long getIdPet() {
-        return idPet;
+    public Pet getPet() {
+        return pet;
     }
 
-    public void setIdPet(Long idPet) {
-        this.idPet = idPet;
+    public void setPet(Pet pet) {
+        this.pet = pet;
     }
 
-    public Long getIdRoom() {
-        return idRoom;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setIdRoom(Long idRoom) {
-        this.idRoom = idRoom;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
 	@Override
 	public String toString() {
-		return "Lodging [id=" + id + ", idPet=" + idPet + ", idRoom=" + idRoom + "]";
+		return "Lodging [id=" + id + ", pet=" + pet + ", room=" + room + "]";
 	}
     
     
 }
+
