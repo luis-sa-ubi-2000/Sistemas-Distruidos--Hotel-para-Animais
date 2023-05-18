@@ -27,7 +27,7 @@ public class MainController {
 		return "mainpage";
 	}
 
-	// 1. ---------  Entidades  -----------------------
+	// 1. -------------------------  Entidades  --------------------------------------
 	
 	
 	// 1.1 ----- Client -------
@@ -126,6 +126,15 @@ public class MainController {
 		}
 		
 		
+		
+		// 2. ---------------------  Services  ----------------------------------
+		
+		// 2.1 ----- Accomodation -------
 	
+		@GetMapping(path="/showLodgings")
+		public String showLodgings(Model model) {
+			model.addAttribute("ListLodgings" , clientRepository.findAll());
+			return "client";
+		}
 	
 }
