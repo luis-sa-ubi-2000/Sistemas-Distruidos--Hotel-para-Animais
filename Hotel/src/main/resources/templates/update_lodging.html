@@ -89,9 +89,9 @@ a:hover {
 <div>
  <h1 align = "center">Lodging's Page</h1>
  <hr>
- <h2 align = "center" >Add a new Lodging</h2>
+ <h2 align = "center" >Update a Lodging</h2>
  <hr>
- <form action="#" th:action="@{/saveLodging}" th:object="${new_lodging}" method="POST">
+ <form action="#" th:action="@{/saveLodging}" th:object="${update_lodg}" method="POST">
   <input type="date" th:field="*{checkInDate}" required>
   <br>
   <input type="date" th:field="*{checkOutDate}" required>
@@ -106,7 +106,7 @@ a:hover {
     <option value="">Select room type</option>
     <option th:each="room: ${ListRooms}" th:value="${room.id}" th:text="${room.type}" required></option>
 </select><br>
-  <button type="submit">Register Lodging</button>
+  <button type="submit">Update Lodging</button>
 </form>
  <hr>
  <a th:href="@{/showLodgings}"> Back to Lodging's List</a>

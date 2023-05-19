@@ -121,13 +121,17 @@ thead {
  				<th>Pet Name</th>
         <th>Room Number</th>
  				<th>Room Type</th>
+        <th>Check-In</th>
+        <th>Check-Out</th>
  			</tr>
  		</thead>
  		<tbody>
  			<tr th:each="lodging : ${ListLodgings}">
  				<td th:text="${lodging.pet.name}"></td>
-         <td th:text="${lodging.room.number}"></td>
+        <td th:text="${lodging.room.number}"></td>
         <td th:text="${lodging.room.type}"></td>
+        <td th:text="${lodging.checkInDate}"></td>
+        <td th:text="${lodging.checkOutDate}"></td>
  				<td>
  					<a th:href="@{/showUpdateLodgingForm/{id}(id=${lodging.id})}" >Update</a>
  					<a th:href="@{/deleteLodging/{id}(id=${lodging.id})}" >Delete</a>

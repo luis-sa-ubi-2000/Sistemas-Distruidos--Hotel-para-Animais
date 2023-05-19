@@ -160,5 +160,30 @@ public class MainController {
 			lodgingRepository.save(lodg);
 			return "redirect:/showLodgings";
 		}
+		
+		
+		@GetMapping("/deleteLodging/{id}")
+		public String deleteLodging(@PathVariable(value = "id") Long id) {
+		 lodgingRepository.deleteById(id);
+			return "redirect:/showLodgings";
+		}
+		
+		
+		
+		@GetMapping("/showUpdateLodgingForm/{id}")
+		public String showUpdateLodgingForm(@PathVariable(value = "id") Long id, Model model) {
+			Optional <Lodging> optional = lodgingRepository.findById(id);
+			Lodging lodg = null;
+			if (optional.isPresent()) {
+				lodg = optional.get();
+			} else {
+				throw new RuntimeException(" Lodging not found for id :: " + id);
+			}
+			// set pet as a model attribute to pre-populate the form
+			model.addAttribute("update_lodg", lodg);
+			model.addAttribute("ListPets" , petRepository.findAll());
+			model.addAttribute("ListRooms" , roomRepository.findAll());
+			return "update_lodging";
+		}
 	
 }
