@@ -7,85 +7,58 @@ import jakarta.persistence.*;
 @Entity
 public class Room {
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private int numero;
-
-    private String tipo;
-
-    private boolean disponivel;
-
-    private double preco;
-
-    private String capacidade;
-
+    private int number;
+    private String type;
+    private int capacity;
+    private boolean disponibility;
+    private double price;
+    
 	public Long getId() {
 		return id;
 	}
-
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
-
-	public int getNumero() {
-		return numero;
+	public int getNumber() {
+		return number;
 	}
-
-
-
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setNumber(int number) {
+		this.number = number;
 	}
-
-
-
-	public String getTipo() {
-		return tipo;
+	public String getType() {
+		return type;
 	}
-
-
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setType(String type) {
+		this.type = type;
 	}
-
-
-
-	public boolean isDisponivel() {
-		return disponivel;
+	public int getCapacity() {
+		return capacity;
 	}
-
-
-
-	public void setDisponivel(boolean disponivel) {
-		this.disponivel = disponivel;
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
 	}
-
-
-
-	public double getPreco() {
-		return preco;
+	public boolean isDisponibility() {
+		return disponibility;
 	}
-
-
-
-	public void setPreco(double preco) {
-		this.preco = preco;
+	public void setDisponibility(boolean disponibility) {
+		this.disponibility = disponibility;
 	}
-
-
-
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
 	@Override
 	public String toString() {
-		return "Quarto [id=" + id + ", numero=" + numero + ", tipo=" + tipo + ", disponivel=" + disponivel + ", preco="
-				+ preco + "]";
+		return "Room [id=" + id + ", number=" + number + ", type=" + type + ", capacity=" + capacity
+				+ ", disponibility=" + disponibility + ", price=" + price + "]";
 	}
+
+	
 	
 }
     
