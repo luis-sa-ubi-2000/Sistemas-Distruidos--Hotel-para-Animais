@@ -22,7 +22,10 @@ public class MainController {
 	private PetRepository petRepository;
 	
 	@Autowired
-	private PetRepository lodgingRepository;
+	private LodgingRepository lodgingRepository;
+	
+	@Autowired
+	private RoomRepository roomRepository;
 	
 	
 	@GetMapping(path="/")
@@ -128,7 +131,7 @@ public class MainController {
 			return "update_pet";
 		}
 		
-		
+		// 1.3 ----- Room -----
 		
 		// 2. ---------------------  Services  ----------------------------------
 		
@@ -138,6 +141,24 @@ public class MainController {
 		public String showLodgings(Model model) {
 			model.addAttribute("ListLodgings" , lodgingRepository.findAll());
 			return "lodgings";
+		}
+		
+		@GetMapping("/showNewLodgingForm")
+		public String showNewLodgingForm(Model model) {
+		 model.addAttribute("ListPets" , petRepository.findAll());
+		 model.addAttribute("ListRooms" , roomRepository.findAll());
+		 Lodging lodg = new Lodging();
+		 model.addAttribute("new_lodging", lodg);
+		 return "new_lodging";
+		}
+		
+		
+		
+		@PostMapping("/saveLodging")
+		public String saveLodging (@ModelAttribute("newlodging") Lodging lodg ) {
+			// save pet to database
+			lodgingRepository.save(lodg);
+			return "redirect:/showLodgings";
 		}
 	
 }
