@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Pet Hotel - Pet's Page </title>
+<style> 
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid #ccc;
+  margin: 20px 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input[type="text"], input[type="number"] {
+  font-size: 16px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+  max-width: 100%;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 20%;
+  margin-bottom: 10px;
+}
+
+button[type="submit"] {
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #0062cc;
+}
+
+a {
+  font-size: 16px;
+  color: #007bff;
+  text-decoration: none;
+  margin-top: 20px;
+  display: block;
+  text-align: center;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+</style>
+</head>
+<body>
+<div>
+ <h1 align = "center">Pet's Page</h1>
+ <hr>
+ <h2 align = "center" >Update Room's</h2>
+ <hr>
+ <form action="#" th:action="@{/saveRoom}" th:object="${update_room}"
+method="POST">
+
+ <label for="number">Number</label>
+ <input type="number" th:field="*{number}" placeholder="Number" required>
+ <label>Type</label>
+        <select id="roomId" name="roomType" th:field="*{type}" required>
+            <option value="">Select the room's type</option>
+            <option th:each="room : ${ListType}" th:text="*{room.type}" required></option>
+        </select><br>
+ <label for="number">Capacity</label>
+ <input type="number" th:field="*{capacity}" placeholder="Capacity"  required>
+ <label>Disponibility</label>
+        <select id="roomId" name="roomDisponibility" th:field="*{disponibility}" required>
+            <option value="">Select the room's disponibility</option>
+            <option th:each="room : ${ListDisponibility}" th:text="*{room.disponibility}" required></option>
+        </select><br>
+ <label>Price</label>
+        <select id="roomId" name="roomPrice" th:field="*{price}" required>
+            <option value="">Select the room's price</option>
+            <option th:each="room : ${ListPrice}" th:text="*{room.price}" required></option>
+        </select><br>
+        
+        
+ <button type="submit" > Update Room</button>
+ </form>
+ <hr>
+ <a th:href="@{/showRoom}"> Back to Room's List</a>
+</div>
+</body>
+</html>
