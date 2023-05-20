@@ -1,8 +1,9 @@
-package com.example.demo;
+package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.demo.model.Client;
+import com.example.demo.model.Lodging;
+import com.example.demo.model.Pet;
+import com.example.demo.model.Room;
+import com.example.demo.repository.ClientRepository;
+import com.example.demo.repository.LodgingRepository;
+import com.example.demo.repository.PetRepository;
+import com.example.demo.repository.RoomRepository;
+import com.example.demo.service.RoomService;
 
 @Controller // This means that this class is a Controller
 public class MainController {
@@ -27,10 +38,16 @@ public class MainController {
 	@Autowired
 	private RoomRepository roomRepository;
 	
+	private final RoomService roomService;
+	
+    public MainController(RoomService roomService) {
+        this.roomService = roomService;
+    }
+	
 	
 	@GetMapping(path="/")
 	public String showMainPage(Model model) {
-		return "mainpage";
+		return "mainpage2";
 	}
 
 	// 1. -------------------------  Entidades  --------------------------------------
@@ -132,6 +149,66 @@ public class MainController {
 		}
 		
 		// 1.3 ----- Room -----
+		
+		@GetMapping("/showRoom")
+		public String showRoom(Model model) {
+			model.addAttribute("ListRooms" , roomRepository.findAll());
+			return "rooms";
+		}
+		
+		
+		
+		@GetMapping("/showNewRoomForm")
+		public String showNewRoomForm(Model model) {
+	        List<String> listType = roomService.listType();
+	        List<String> listDisponibility = roomService.listDisponibility();
+	        List<String> listPrice = roomService.listPrice();
+		 Room room = new Room();
+		 model.addAttribute("new_room", room);
+		 model.addAttribute("ListNumber", listType);
+		 model.addAttribute("ListDisponibility",listDisponibility);
+		 model.addAttribute("ListPrice",listPrice);
+		 return "new_room";
+		}
+		
+		
+		
+		@PostMapping("/saveRoom")
+		public String saveRoom (@ModelAttribute("newroom") Room room ) {
+			// save room to database
+			roomRepository.save(room);
+			return "redirect:/showRoom";
+		}
+		
+		
+		
+		@GetMapping("/deleteRoom/{id}")
+		public String deleteRoom(@PathVariable(value = "id") Long id) {
+		 roomRepository.deleteById(id);
+			return "redirect:/showRoom";
+		}
+		
+		
+		
+		@GetMapping("/showUpdateRoomForm/{id}")
+		public String showUpdateRoomForm(@PathVariable(value = "id") Long id, Model model) {
+			Optional <Room> optional = roomRepository.findById(id);
+	        List<String> listType = roomService.listType();
+	        List<String> listDisponibility = roomService.listDisponibility();
+	        List<String> listPrice = roomService.listPrice();
+			Room room = null;
+			if (optional.isPresent()) {
+				room = optional.get();
+			} else {
+				throw new RuntimeException(" Room not found for id :: " + id);
+			}
+			// set room as a model attribute to pre-populate the form
+			model.addAttribute("update_room", room);
+			 model.addAttribute("ListNumber", listType);
+			 model.addAttribute("ListDisponibility",listDisponibility);
+			 model.addAttribute("ListPrice",listPrice);
+			return "update_room";
+		}
 		
 		// 2. ---------------------  Services  ----------------------------------
 		
