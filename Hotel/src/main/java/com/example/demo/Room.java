@@ -13,9 +13,9 @@ public class Room {
     private int number;
     private String type;
     private int capacity;
-    private String disponibility;
-    private String price;
-
+    private boolean disponibility;
+    private double price;
+    
     
 	public Long getId() {
 		return id;
@@ -41,16 +41,19 @@ public class Room {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-	public String getDisponibility() {
+	
+	
+	public boolean isDisponibility() {
 		return disponibility;
 	}
-	public void setDisponibility(String disponibility) {
+	public void setDisponibility(boolean disponibility) {
 		this.disponibility = disponibility;
 	}
-	public String getPrice() {
+
+	public double getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 	@Override
@@ -58,8 +61,7 @@ public class Room {
 		return "Room [id=" + id + ", number=" + number + ", type=" + type + ", capacity=" + capacity
 				+ ", disponibility=" + disponibility + ", price=" + price + "]";
 	}
-
-	
+    
 	
 }
     
