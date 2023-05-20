@@ -149,7 +149,6 @@ public class MainController {
 		
 		@PostMapping("/saveRoom")
 		public String saveRoom (@ModelAttribute("newroom") Room room ) {
-			// save pet to database
 			roomRepository.save(room);
 			return "redirect:/showRoom";
 		}
@@ -199,7 +198,6 @@ public class MainController {
 		
 		@PostMapping("/saveLodging")
 		public String saveLodging (@ModelAttribute("newlodging") Lodging lodg ) {
-			// save pet to database
 			lodgingRepository.save(lodg);
 			return "redirect:/showLodgings";
 		}
@@ -212,7 +210,6 @@ public class MainController {
 		}
 		
 		
-		
 		@GetMapping("/showUpdateLodgingForm/{id}")
 		public String showUpdateLodgingForm(@PathVariable(value = "id") Long id, Model model) {
 			Optional <Lodging> optional = lodgingRepository.findById(id);
@@ -222,7 +219,6 @@ public class MainController {
 			} else {
 				throw new RuntimeException(" Lodging not found for id :: " + id);
 			}
-			// set pet as a model attribute to pre-populate the form
 			model.addAttribute("update_lodg", lodg);
 			model.addAttribute("ListPets" , petRepository.findAll());
 			model.addAttribute("ListRooms" , roomRepository.findAll());
