@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.model;
 
 
 import jakarta.persistence.*;
@@ -13,8 +13,9 @@ public class Room {
     private int number;
     private String type;
     private int capacity;
-    private boolean disponibility;
-    private double price;
+    private String disponibility;
+    private String price;
+
     
 	public Long getId() {
 		return id;
@@ -40,16 +41,16 @@ public class Room {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-	public boolean isDisponibility() {
+	public String getDisponibility() {
 		return disponibility;
 	}
-	public void setDisponibility(boolean disponibility) {
+	public void setDisponibility(String disponibility) {
 		this.disponibility = disponibility;
 	}
-	public double getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	@Override
