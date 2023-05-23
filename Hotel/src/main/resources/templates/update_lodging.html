@@ -92,8 +92,10 @@ a:hover {
  <h2 align = "center" >Update a Lodging</h2>
  <hr>
  <form action="#" th:action="@{/saveLodging}" th:object="${update_lodg}" method="POST">
+  <label for="checkInDate">Check-In Date:</label>
   <input type="date" th:field="*{checkInDate}" required>
   <br>
+  <label for="checkOutDate">Check-Out Date:</label>
   <input type="date" th:field="*{checkOutDate}" required>
   <br>
   <label for="petName">Pet Name:</label>
