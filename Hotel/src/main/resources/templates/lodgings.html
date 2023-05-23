@@ -128,8 +128,8 @@ thead {
  		<tbody>
  			<tr th:each="lodging : ${ListLodgings}">
  				<td th:text="${lodging.pet.name}"></td>
-        <td th:text="${lodging.room.number}"></td>
-        <td th:text="${lodging.room.type}"></td>
+         <td th:text="${lodging.room != null ? lodging.room.number : ''}"></td>
+         <td th:text="${lodging.room != null ? lodging.room.type : ''}"></td>
         <td th:text="${lodging.checkInDate}"></td>
         <td th:text="${lodging.checkOutDate}"></td>
  				<td>
