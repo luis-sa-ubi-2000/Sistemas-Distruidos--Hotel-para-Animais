@@ -24,9 +24,7 @@ public class MainController {
 	
 	@Autowired
 	private LodgingRepository lodgingRepository;
-	
-	private LodgingService lodgingService;
-	
+		
 	@Autowired
 	private RoomRepository roomRepository;
 	
@@ -265,8 +263,6 @@ public class MainController {
 	    
 		@GetMapping("/showSpeciesStatistics")
 		public String countLodgingsBySpecies(Model model) {
-		    List<Object[]> results = lodgingService.countLodgingsBySpecies();
-		    model.addAttribute("results", results);
 		    return "statistic_species";
 		}
 		
