@@ -5,7 +5,7 @@ Trabalho prático de SD - Aplicação Web em Jakarta EE, usando a framework Spri
 
 ### Serviços a Fornecer
 - [ ] Hospedagem: oferecer diferentes tipos de quartos e acomodações para os animais, com diferentes níveis de conforto e serviços adicionais, como TV e brinquedos. [João]
-- [ ] Alimentação: oferecer diferentes tipos de alimentos para os animais, dependendo de suas necessidades nutricionais e preferências. [Luís]
+- [x] Alimentação: oferecer diferentes tipos de alimentos para os animais, dependendo de suas necessidades nutricionais e preferências. [Luís]
 - **Extra** -> cuidados Veterinários: oferecer serviços de saúde, como consultas e exames, vacinação, tratamento de doenças e feridas, entre outros.
 
 ### Entidades
