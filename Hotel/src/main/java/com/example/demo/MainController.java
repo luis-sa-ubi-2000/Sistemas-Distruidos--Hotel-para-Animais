@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,8 @@ public class MainController {
 	
 	@Autowired
 	private LodgingRepository lodgingRepository;
+	
+	private LodgingService lodgingService;
 	
 	@Autowired
 	private RoomRepository roomRepository;
@@ -224,5 +227,60 @@ public class MainController {
 			model.addAttribute("ListRooms" , roomRepository.findAll());
 			return "update_lodging";
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// 3. ---------------------  Statistics  ----------------------------------
+		
+	    
+		@GetMapping("/showSpeciesStatistics")
+		public String countLodgingsBySpecies(Model model) {
+		    List<Object[]> results = lodgingService.countLodgingsBySpecies();
+		    model.addAttribute("results", results);
+		    return "statistic_species";
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 }
