@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Pet Hotel - Statistic's Page</title>
+ <style>
+/* Define as fontes e cores padrão */
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Estilize os títulos */
+h1, h2 {
+  text-align: center;
+  font-weight: normal;
+  margin-top: 10px;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+button[type="submit"] {
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  margin-bottom: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+input[type="text"], input[type="number"] {
+  font-size: 16px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+  max-width: 100%;
+}
+
+input[type="date"] {
+  
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+button[type="submit"]:hover {
+  background-color: #0062cc;
+}
+
+/* Estilize os links como botões */
+a {
+  display: inline-block;
+  padding: 0.5em 1em;
+  background-color: #0077cc;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 0.25em;
+}
+
+label {
+        display: block;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+
+
+a:hover {
+  background-color: #005ea8;
+}
+
+/* Adicione um pouco de espaço entre os botões */
+a + a {
+  margin-left: 1em;
+}
+
+form {
+        margin-top: 20px;
+}
+
+
+/* Estilize a tabela */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+thead {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table-responsive-md {
+  overflow-x: auto;
+}
+
+/* Adicione um pouco de espaçamento */
+.mb-2 {
+  margin-bottom: 1rem;
+}
+
+.add-customer-link {
+  margin-bottom: 10px;
+}
+
+.back-to-main-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5em;
+            background-color: #000000;
+            color: #fbfbfb;
+            text-decoration: none;
+            border: none;
+            border-radius: 0.25em;
+            cursor: pointer;
+      }
+
+      .back-to-main-button:hover {
+          background-color: #005ea8;
+      }
+
+          .back-to-main-button:active {
+            background-color: #003d80;
+          }
+
+          .back-to-main-button i {
+            margin-right: 0.5em;
+          }
+
+</style>
+</head>
+<body>
+<div>
+  <a th:href="@{/}" class="back-to-main-button">
+    <i class="fas fa-arrow-left"></i>
+    Back to Main Menu
+  </a>
+ 	<h1> Statistic - Number of lodgings by species of animal</h1>
+ 	<table border="1" class="table table-striped table-responsive-md">
+ 		<thead>
+      <tr>
+        <th>Species</th>
+        <th>Count</th>
+    </tr>
+    <tr th:each="lodgingCount : ${lodgingCounts}">
+        <td th:text="${lodgingCount.specie}"></td>
+        <td th:text="${lodgingCount.count}"></td>
+    </tr>
+ 		</tbody>
+ 	</table>
+</div>
+<div>
+   <h2> Select a period of time </h2>
+    <form action="#" th:action="@{/processSpeciesStatistics}" th:object="${dateForm}" method="post">
+        <label for="begin">Begin Date:</label>
+        <input type="date" id="begin" th:field="*{begin}" required/>
+        <br />
+        <label for="end">End Date:</label>
+        <input type="date" id="end" th:field="*{end}" required/>
+        <br />
+        <button type="submit">Select Period</button>
+    </form>
+    <h2 th:if="${dateForm.begin != null && dateForm.end != null && dateForm.begin != T(java.time.LocalDate).parse('0000-01-01') && dateForm.end != T(java.time.LocalDate).parse('0000-01-01')}">
+      Period Selected: <span th:text="${dateForm.begin}"></span> to <span th:text="${dateForm.end}"></span>
+  </h2>
+  
+  
+      <table border="1" class="table table-striped table-responsive-md">
+        <thead>
+         <tr>
+           <th>Species</th>
+           <th>Count</th>
+       </tr>
+       <tr th:each="lodgingCountI : ${lodgingCountsInterval}">
+           <td th:text="${lodgingCountI.specie}"></td>
+           <td th:text="${lodgingCountI.count}"></td>
+       </tr>
+        </tbody>
+      </table>
+</div>
+</body>
+</html>

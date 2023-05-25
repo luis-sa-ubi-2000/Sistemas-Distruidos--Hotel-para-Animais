@@ -1,6 +1,8 @@
 package com.example.demo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +17,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller // This means that this class is a Controller
 public class MainController {
 	
+	// Static Methods
+	
+	public static boolean insertedAInterval(DateForm dateForm) {
+    	if (dateForm.getBegin().isEqual(LocalDate.of(0, 1, 1))) {
+    	    return false;
+    	} else {
+    		return true;
+    	}
+    }
+	
+	// Variables
+	DateForm initDate = new DateForm();
+	
 	@Autowired
 	private ClientRepository clientRepository;
 	
@@ -23,7 +38,7 @@ public class MainController {
 	
 	@Autowired
 	private LodgingRepository lodgingRepository;
-	
+		
 	@Autowired
 	private RoomRepository roomRepository;
 	
@@ -224,5 +239,98 @@ public class MainController {
 			model.addAttribute("ListRooms" , roomRepository.findAll());
 			return "update_lodging";
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// 3. ---------------------  Statistics  ----------------------------------
+		
+	    
+		@GetMapping("/showSpeciesStatistics")
+		public String countLodgingsBySpecies(Model model) {
+			
+			List<Object[]> results = petRepository.findLodgingCountBySpecie();
+
+	        List<StatisticSpecie> statisticSpecieCounts = new ArrayList<>();
+	        for (Object[] result : results) {
+	        	StatisticSpecie statisticSpecieCount = new StatisticSpecie();
+	        	statisticSpecieCount.setSpecie((String) result[0]);
+	        	statisticSpecieCount.setCount((Long) result[1]);
+	        	statisticSpecieCounts.add(statisticSpecieCount);
+	        }
+	        
+	        
+	        // Verify if user was already give a interval of time
+	        if(insertedAInterval(initDate)) {
+	        	List<Object[]> resultsInterval = petRepository.findPetSpeciesCountByLodgingDate(initDate.getBegin(), initDate.getEnd());
+
+		        List<StatisticSpecie> statisticSpecieCountsInterval = new ArrayList<>();
+		        for (Object[] result : resultsInterval) {
+		        	StatisticSpecie statisticSpecieCountInterval = new StatisticSpecie();
+		        	statisticSpecieCountInterval.setSpecie((String) result[0]);
+		        	statisticSpecieCountInterval.setCount((Long) result[1]);
+		        	statisticSpecieCountsInterval.add(statisticSpecieCountInterval);
+		        }
+		        
+		        model.addAttribute("lodgingCountsInterval", statisticSpecieCountsInterval);
+	        }
+
+	        model.addAttribute("dateForm", initDate);
+	        model.addAttribute("lodgingCounts", statisticSpecieCounts);
+		    return "statistic_species";
+		}
+		
+		 @PostMapping("/processSpeciesStatistics")
+		    public String processForm(DateForm dateForm, Model model) {
+			 	// Process the form data here
+		        LocalDate beginDate = dateForm.getBegin();
+		        LocalDate endDate = dateForm.getEnd();
+		        
+		        initDate.setBegin(beginDate);
+		        initDate.setEnd(endDate);
+		        return "redirect:/showSpeciesStatistics";
+		    }
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 }
