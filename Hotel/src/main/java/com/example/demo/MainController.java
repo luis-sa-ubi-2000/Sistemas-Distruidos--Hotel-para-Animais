@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller // This means that this class is a Controller
 public class MainController {
 	
+	// Variables
+	DateForm initDate = new DateForm();
+	
 	@Autowired
 	private ClientRepository clientRepository;
 	
@@ -264,7 +267,6 @@ public class MainController {
 	    
 		@GetMapping("/showSpeciesStatistics")
 		public String countLodgingsBySpecies(Model model) {
-			DateForm initDate = new DateForm();
 			
 			List<Object[]> results = petRepository.findLodgingCountBySpecie();
 
@@ -286,8 +288,9 @@ public class MainController {
 			 	// Process the form data here
 		        LocalDate beginDate = dateForm.getBegin();
 		        LocalDate endDate = dateForm.getEnd();
-
-		        model.addAttribute("dateForm", dateForm);
+		        
+		        initDate.setBegin(beginDate);
+		        initDate.setEnd(endDate);
 		        return "redirect:/showSpeciesStatistics";
 		    }
 		
