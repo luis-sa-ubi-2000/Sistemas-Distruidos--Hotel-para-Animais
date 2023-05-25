@@ -32,11 +32,4 @@ public class DateForm {
         this.end = end;
     }
     
-    public boolean insertedAInterval(DateForm dateForm) {
-    	if (dateForm.getBegin().isEqual(LocalDate.of(0, 1, 1))) {
-    	    return true;
-    	} else {
-    		return false;
-    	}
-    }
 }

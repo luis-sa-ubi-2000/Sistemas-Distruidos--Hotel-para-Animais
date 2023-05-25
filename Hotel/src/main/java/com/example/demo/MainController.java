@@ -21,9 +21,9 @@ public class MainController {
 	
 	public static boolean insertedAInterval(DateForm dateForm) {
     	if (dateForm.getBegin().isEqual(LocalDate.of(0, 1, 1))) {
-    	    return true;
+    	    return false;
     	} else {
-    		return false;
+    		return true;
     	}
     }
 	
@@ -290,11 +290,11 @@ public class MainController {
 	        
 	        
 	        // Verify if user was already give a interval of time
-	        if(!(initDate.insertedAInterval(initDate))) {
+	        if(insertedAInterval(initDate)) {
 	        	List<Object[]> resultsInterval = petRepository.findPetSpeciesCountByLodgingDate(initDate.getBegin(), initDate.getEnd());
 
 		        List<StatisticSpecie> statisticSpecieCountsInterval = new ArrayList<>();
-		        for (Object[] result : results) {
+		        for (Object[] result : resultsInterval) {
 		        	StatisticSpecie statisticSpecieCountInterval = new StatisticSpecie();
 		        	statisticSpecieCountInterval.setSpecie((String) result[0]);
 		        	statisticSpecieCountInterval.setCount((Long) result[1]);
