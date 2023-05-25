@@ -17,6 +17,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller // This means that this class is a Controller
 public class MainController {
 	
+	// Static Methods
+	
+	public static boolean insertedAInterval(DateForm dateForm) {
+    	if (dateForm.getBegin().isEqual(LocalDate.of(0, 1, 1))) {
+    	    return true;
+    	} else {
+    		return false;
+    	}
+    }
+	
 	// Variables
 	DateForm initDate = new DateForm();
 	
@@ -280,7 +290,7 @@ public class MainController {
 	        
 	        
 	        // Verify if user was already give a interval of time
-	        if(initDate.insertedAInterval(initDate)) {
+	        if(!(initDate.insertedAInterval(initDate))) {
 	        	List<Object[]> resultsInterval = petRepository.findPetSpeciesCountByLodgingDate(initDate.getBegin(), initDate.getEnd());
 
 		        List<StatisticSpecie> statisticSpecieCountsInterval = new ArrayList<>();
@@ -288,7 +298,7 @@ public class MainController {
 		        	StatisticSpecie statisticSpecieCountInterval = new StatisticSpecie();
 		        	statisticSpecieCountInterval.setSpecie((String) result[0]);
 		        	statisticSpecieCountInterval.setCount((Long) result[1]);
-		        	statisticSpecieCounts.add(statisticSpecieCountInterval);
+		        	statisticSpecieCountsInterval.add(statisticSpecieCountInterval);
 		        }
 		        
 		        model.addAttribute("lodgingCountsInterval", statisticSpecieCountsInterval);
