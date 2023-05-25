@@ -6,10 +6,14 @@ public class DateForm {
     private LocalDate begin;
     private LocalDate end;
     
-    
+    public DateForm(LocalDate begin, LocalDate end) {
+        this.begin = begin;
+        this.end = end;
+    }
 
     public DateForm() {
-		super();
+    	this.begin = LocalDate.of(0, 1, 1);
+        this.end = LocalDate.of(0, 1, 1);
 	}
 
 	public LocalDate getBegin() {
@@ -26,5 +30,13 @@ public class DateForm {
 
     public void setEnd(LocalDate end) {
         this.end = end;
+    }
+    
+    public boolean insertedAInterval(DateForm dateForm) {
+    	if (dateForm.getBegin().isEqual(LocalDate.of(0, 1, 1))) {
+    	    return true;
+    	} else {
+    		return false;
+    	}
     }
 }

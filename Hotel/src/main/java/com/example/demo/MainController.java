@@ -277,6 +277,22 @@ public class MainController {
 	        	statisticSpecieCount.setCount((Long) result[1]);
 	        	statisticSpecieCounts.add(statisticSpecieCount);
 	        }
+	        
+	        
+	        // Verify if user was already give a interval of time
+	        if(initDate.insertedAInterval(initDate)) {
+	        	List<Object[]> resultsInterval = petRepository.findPetSpeciesCountByLodgingDate(initDate.getBegin(), initDate.getEnd());
+
+		        List<StatisticSpecie> statisticSpecieCountsInterval = new ArrayList<>();
+		        for (Object[] result : results) {
+		        	StatisticSpecie statisticSpecieCountInterval = new StatisticSpecie();
+		        	statisticSpecieCountInterval.setSpecie((String) result[0]);
+		        	statisticSpecieCountInterval.setCount((Long) result[1]);
+		        	statisticSpecieCounts.add(statisticSpecieCountInterval);
+		        }
+		        
+		        model.addAttribute("lodgingCountsInterval", statisticSpecieCountsInterval);
+	        }
 
 	        model.addAttribute("dateForm", initDate);
 	        model.addAttribute("lodgingCounts", statisticSpecieCounts);
