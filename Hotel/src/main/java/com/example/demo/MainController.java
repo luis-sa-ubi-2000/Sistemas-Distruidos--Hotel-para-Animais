@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -263,6 +264,8 @@ public class MainController {
 	    
 		@GetMapping("/showSpeciesStatistics")
 		public String countLodgingsBySpecies(Model model) {
+			DateForm initDate = new DateForm();
+			
 			List<Object[]> results = petRepository.findLodgingCountBySpecie();
 
 	        List<StatisticSpecie> statisticSpecieCounts = new ArrayList<>();
@@ -273,9 +276,19 @@ public class MainController {
 	        	statisticSpecieCounts.add(statisticSpecieCount);
 	        }
 
+	        model.addAttribute("dateForm", initDate);
 	        model.addAttribute("lodgingCounts", statisticSpecieCounts);
 		    return "statistic_species";
 		}
+		
+		 @PostMapping("/processSpeciesStatistics")
+		    public String processForm(DateForm dateForm, Model model) {
+		        // Process the dates here as needed
+			 	dateForm = null;
+
+		        model.addAttribute("dateForm", dateForm);
+		        return "redirect:/showSpeciesStatistics";
+		    }
 		
 		
 		

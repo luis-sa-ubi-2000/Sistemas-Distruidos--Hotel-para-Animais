@@ -14,6 +14,7 @@ body {
 h1, h2 {
   text-align: center;
   font-weight: normal;
+  margin-top: 10px;
 }
 
 h1 {
@@ -24,6 +25,40 @@ h1 {
 h2 {
   font-size: 1.5em;
   margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+button[type="submit"] {
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+input[type="text"], input[type="number"] {
+  font-size: 16px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+  max-width: 100%;
+}
+
+input[type="date"] {
+  
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+button[type="submit"]:hover {
+  background-color: #0062cc;
 }
 
 /* Estilize os links como botões */
@@ -37,6 +72,13 @@ a {
   border-radius: 0.25em;
 }
 
+label {
+        display: block;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+
 
 a:hover {
   background-color: #005ea8;
@@ -46,6 +88,11 @@ a:hover {
 a + a {
   margin-left: 1em;
 }
+
+form {
+        margin-top: 20px;
+}
+
 
 /* Estilize a tabela */
 table {
@@ -126,6 +173,21 @@ thead {
     </tr>
  		</tbody>
  	</table>
+   <h2> Select a period of time </h2>
+    <form action="#" th:action="@{/processSpeciesStatistics}" th:object="${dateForm}" method="post">
+        <label for="begin">Begin Date:</label>
+        <input type="date" id="begin" th:field="*{begin}" />
+        <br />
+        <label for="end">End Date:</label>
+        <input type="date" id="end" th:field="*{end}" />
+        <br />
+        <button type="submit">Select Period</button>
+    </form>
+    
+    <h2 th:if="${dateForm.begin != null && dateForm.end != null}">
+      Dates entered: <span th:text="${dateForm.begin}"></span> to <span th:text="${dateForm.end}"></span>
+  </h2>
+  
 </div>
 </body>
 </html>
