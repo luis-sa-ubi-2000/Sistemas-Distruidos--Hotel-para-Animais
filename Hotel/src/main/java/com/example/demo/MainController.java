@@ -263,6 +263,17 @@ public class MainController {
 	    
 		@GetMapping("/showSpeciesStatistics")
 		public String countLodgingsBySpecies(Model model) {
+			List<Object[]> results = petRepository.findLodgingCountBySpecie();
+
+	        List<StatisticSpecie> statisticSpecieCounts = new ArrayList<>();
+	        for (Object[] result : results) {
+	        	StatisticSpecie statisticSpecieCount = new StatisticSpecie();
+	        	statisticSpecieCount.setSpecie((String) result[0]);
+	        	statisticSpecieCount.setCount((Long) result[1]);
+	        	statisticSpecieCounts.add(statisticSpecieCount);
+	        }
+
+	        model.addAttribute("lodgingCounts", statisticSpecieCounts);
 		    return "statistic_species";
 		}
 		
