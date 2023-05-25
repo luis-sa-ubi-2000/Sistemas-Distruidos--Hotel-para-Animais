@@ -283,8 +283,9 @@ public class MainController {
 		
 		 @PostMapping("/processSpeciesStatistics")
 		    public String processForm(DateForm dateForm, Model model) {
-		        // Process the dates here as needed
-			 	dateForm = null;
+			 	// Process the form data here
+		        LocalDate beginDate = dateForm.getBegin();
+		        LocalDate endDate = dateForm.getEnd();
 
 		        model.addAttribute("dateForm", dateForm);
 		        return "redirect:/showSpeciesStatistics";
