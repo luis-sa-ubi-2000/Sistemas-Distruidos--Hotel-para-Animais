@@ -42,11 +42,12 @@ public class MainController {
 	@Autowired
 	private RoomRepository roomRepository;
 	
-	
+	/*
 	@GetMapping(path="/")
 	public String showMainPage(Model model) {
 		return "mainpage";
 	}
+	*/
 
 	// 1. -------------------------  Entidades  --------------------------------------
 	
