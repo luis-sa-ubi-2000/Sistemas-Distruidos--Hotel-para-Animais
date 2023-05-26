@@ -239,38 +239,7 @@ public class MainController {
 			model.addAttribute("ListRooms" , roomRepository.findAll());
 			return "update_lodging";
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
 		// 3. ---------------------  Statistics  ----------------------------------
 		
