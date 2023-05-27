@@ -428,33 +428,6 @@ public class UserController {
         return "redirect:/vcbooking";
     }
     
-    @GetMapping("/vcupdatelodging/{id}")
-    public String vcUpdateLodging(@PathVariable("id") Long id, Model model, HttpSession session) {
-    	User user = (User) session.getAttribute("client");
-        List<Client> clientList = new ArrayList<>();
-        Client client = null;
-        clientRepository.findAll().forEach(clientList::add);
-        int clientCount = clientList.size();
-        for (int i = 0; i < clientCount; i++) {
-            if (clientList.get(i).getUser() != null) {
-                if (clientList.get(i).getUser().getId() == user.getId()) {
-                    client = clientList.get(i);
-                }
-            }
-        }
-        // Retrieve the lodging from the repository
-        Optional<Lodging> lodgingOptional = lodgingRepository.findById(id);
-        if (lodgingOptional.isPresent()) {
-            Lodging lodging = lodgingOptional.get();
-            model.addAttribute("ListPetsU" , client.getPets());
-            model.addAttribute("update_lodging", lodging);
-            return "vcupdatelodging"; // Return the update lodging view
-        } else {
-            return "redirect:/vcbooking"; // Handle the case when the lodging is not found
-        }
-
-    }
-    
     
     
    
