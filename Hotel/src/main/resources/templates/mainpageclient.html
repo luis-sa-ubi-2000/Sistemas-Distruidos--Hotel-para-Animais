@@ -124,6 +124,16 @@ form button[type="submit"] {
   text-decoration: none;
   font-weight: bold;
 }
+.delete-link {
+  color: red;
+  text-decoration: none;
+}
+
+.delete-link:hover {
+  text-decoration: underline;
+}
+
+
 
 
 form button[type="submit"]:hover {
@@ -198,12 +208,16 @@ form button[type="submit"]:hover {
               <th>Specie</th>
           </tr>
           <tr th:each="pet : ${pets}">
-              <td th:text="${pet.age}" style="text-align: center;"></td>
-              <td th:text="${pet.name}" style="text-align: center;"></td>
-              <td th:text="${pet.race}" style="text-align: center;"></td>
-              <td th:text="${pet.specie}" style="text-align: center;"></td>
-          </tr>
+            <td th:text="${pet.age}" style="text-align: center;"></td>
+            <td th:text="${pet.name}" style="text-align: center;"></td>
+            <td th:text="${pet.race}" style="text-align: center;"></td>
+            <td th:text="${pet.specie}" style="text-align: center;"></td>
+            <td>
+                <a  class="delete-link" th:href="@{/pets/delete/{id}(id=${pet.id})}">Delete</a>
+            </td>
+        </tr>        
       </table>
+      <a class="change-info-link" th:href="@{/showVCNewPetForm}"> Add Pet</a>
   </div>
   
 

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +23,9 @@ public class UserController {
     
     @Autowired
     private ClientRepository clientRepository;
+    
+    @Autowired
+    private PetRepository petRepository;
     
 
     
@@ -107,7 +112,7 @@ public class UserController {
     }
     
     @PostMapping("/vcsaveClient")
-    public String saveClient(@ModelAttribute("client") Client client) {
+    public String saveClientVC(@ModelAttribute("client") Client client) {
         if (client.getId() == null) {
             // Create a new client
             clientRepository.save(client);
@@ -130,7 +135,7 @@ public class UserController {
     
     
     @GetMapping("/vcupdateclient/{clientId}")
-    public String showUpdateClientPage(@PathVariable("clientId") Long clientId, Model model) {
+    public String showUpdateClientPageVC(@PathVariable("clientId") Long clientId, Model model) {
         // Retrieve the client from the database based on the provided clientId
         Client client = clientRepository.findById(clientId).orElse(null);
         
@@ -143,6 +148,60 @@ public class UserController {
             return "error";
         }
     }
+    
+    
+    @GetMapping("/pets/delete/{id}")
+    public String deletePetVC(@PathVariable(value = "id") Long id) {
+        petRepository.deleteById(id);
+        return "redirect:/mainpageclient";
+    }
+
+    
+    @GetMapping("/showVCNewPetForm")
+    public String showNewPetForm(Model model) {
+        model.addAttribute("new_pet", new Pet());
+        return "vcnewpetclient";
+    }
+    
+    @PostMapping("/vcsavePet")
+    public String savePetVC(@ModelAttribute("new_pet") Pet pet, HttpSession session) {
+        User user = (User) session.getAttribute("client");
+        List<Client> clientList = new ArrayList<>();
+        Client client = null;
+        clientRepository.findAll().forEach(clientList::add);
+        int clientCount = clientList.size();
+        for(int i = 0; i < clientCount; i++) {
+            if(clientList.get(i).getUser() != null) {
+                if(clientList.get(i).getUser().getId() == user.getId()) {
+                    client = clientList.get(i);
+                }
+            }
+        }
+
+        pet.setClient(client); // Assign the client to the pet object
+
+        if (pet.getId() == null) {
+            // Create a new pet
+            petRepository.save(pet);
+        } else {
+            // Update an existing pet
+            Pet existingPet = petRepository.findById(pet.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid pet ID"));
+
+            // Update the existing pet with the new values
+            existingPet.setAge(pet.getAge());
+            existingPet.setName(pet.getName());
+            existingPet.setRace(pet.getRace());
+            existingPet.setSpecie(pet.getSpecie());
+            existingPet.setClient(client);
+
+            petRepository.save(existingPet);
+        }
+
+        return "redirect:/mainpageclient";
+    }
+
+
 
     
     
