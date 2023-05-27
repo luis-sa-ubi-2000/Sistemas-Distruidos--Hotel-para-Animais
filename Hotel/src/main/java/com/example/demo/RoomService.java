@@ -1,12 +1,12 @@
-package com.example.demo.service;
+package com.example.demo;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.Room;
-import com.example.demo.repository.RoomRepository;
+import com.example.demo.Room;
+import com.example.demo.RoomRepository;
 
 @Service
 public class RoomService {
