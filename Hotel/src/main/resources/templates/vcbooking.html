@@ -73,6 +73,15 @@
 .delete-link:hover {
   text-decoration: underline;
 }
+
+.change-info-link {
+  /* Your CSS properties here */
+  /* For example: */
+  color: blue;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 20px;
+}
 </style>
 <body>
     <h1>Booking Page</h1>
@@ -127,6 +136,10 @@
             <td th:text="${lodging.room.type}"></td>
             <td th:text="${lodging.room.number}"></td>
             <td th:text="${lodging.pet.name}"></td>
+            <td>
+                <a  class="delete-link" th:href="@{/logs/delete/{id}(id=${lodging.id})}">Delete Reserve</a>
+                <a class="change-info-link" th:href="@{/vcupdatelodging/{id}(id=${lodging.id})}">Update</a>
+            </td>
             <!-- Add more table cells as needed -->
         </tr>
     </tbody>

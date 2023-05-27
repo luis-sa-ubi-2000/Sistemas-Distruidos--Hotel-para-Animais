@@ -30,6 +30,10 @@ public class UserController {
     
     @Autowired
     private LodgingRepository lodgingRepository;
+    
+    @Autowired
+    private RoomRepository roomRepository;
+  
   
 
     
@@ -313,17 +317,124 @@ public class UserController {
     }
     
     @PostMapping("/vcsaveLodging")
-	public String vcsaveLodging (@ModelAttribute("newlodging") Lodging lodg ) {
-		lodgingRepository.save(lodg);
-		return "redirect:/showLodgings";
-	}
+    public String vcsaveLodging(@ModelAttribute("newlodging") Lodging lodg,
+                                @RequestParam("checkInDate") LocalDate checkInDate,
+                                @RequestParam("checkOutDate") LocalDate checkOutDate,
+                                @RequestParam("roomType") String roomType,
+                                Model model, HttpSession session) {
+    	
+    	// Check if the same pet is already booked for overlapping date intervals
+        boolean isPetAlreadyBooked = lodgingRepository.existsByPetAndCheckInDateLessThanEqualAndCheckOutDateGreaterThanEqual(lodg.getPet(), checkInDate, checkOutDate);
+        if (isPetAlreadyBooked) {
+            String errorMessage = "This pet is already booked for the selected date interval.";
+            User user = (User) session.getAttribute("client");
+            List<Client> clientList = new ArrayList<>();
+            Client client = null;
+            clientRepository.findAll().forEach(clientList::add);
+            int clientCount = clientList.size();
+            for (int i = 0; i < clientCount; i++) {
+                if (clientList.get(i).getUser() != null) {
+                    if (clientList.get(i).getUser().getId() == user.getId()) {
+                        client = clientList.get(i);
+                    }
+                }
+            }
+            
+            model.addAttribute("errorMessage", errorMessage);
+            model.addAttribute("ListPetsU" , client.getPets());
+   		 	Lodging lodg1 = new Lodging();
+   		 	model.addAttribute("new_lodging", lodg1);
+            return "vcnewbooking";
+        }
+        
+        // Find an available room based on the provided criteria
+        Room room = findAvailableRoom(checkInDate, checkOutDate, roomType);
+        
+ 
 
+        if (room != null) {
+        	if(lodg.getCheckInDate().isAfter(LocalDate.now()) && lodg.getCheckOutDate().isAfter(lodg.getCheckInDate())) {
+        		// Set the room for the lodging
+                lodg.setRoom(room);
 
+                // Save the lodging to the repository
+                lodgingRepository.save(lodg);
+                String errorMessage = "Sucessufull Reserve, enjoy!";
+                model.addAttribute("errorMessage", errorMessage);
+                return "vcbooking";
+        	} else {
+        		String errorMessage = "Can't proceed Check-in or Check-out dates...";
+        		User user = (User) session.getAttribute("client");
+                List<Client> clientList = new ArrayList<>();
+                Client client = null;
+                clientRepository.findAll().forEach(clientList::add);
+                int clientCount = clientList.size();
+                for (int i = 0; i < clientCount; i++) {
+                    if (clientList.get(i).getUser() != null) {
+                        if (clientList.get(i).getUser().getId() == user.getId()) {
+                            client = clientList.get(i);
+                        }
+                    }
+                }
+                
+                model.addAttribute("errorMessage", errorMessage);
+                model.addAttribute("ListPetsU" , client.getPets());
+       		 	Lodging lodg1 = new Lodging();
+       		 	model.addAttribute("new_lodging", lodg1);
+                return "vcnewbooking";
+        	}
+        } else {
+        	User user = (User) session.getAttribute("client");
+            List<Client> clientList = new ArrayList<>();
+            Client client = null;
+            clientRepository.findAll().forEach(clientList::add);
+            int clientCount = clientList.size();
+            for (int i = 0; i < clientCount; i++) {
+                if (clientList.get(i).getUser() != null) {
+                    if (clientList.get(i).getUser().getId() == user.getId()) {
+                        client = clientList.get(i);
+                    }
+                }
+            }
+            
+            model.addAttribute("ListPetsU" , client.getPets());
+   		 	Lodging lodg1 = new Lodging();
+   		 	model.addAttribute("new_lodging", lodg1);
+        	String errorMessage = "No available room found. Please choose different dates or room type.";
+            model.addAttribute("errorMessage", errorMessage);
+            return "vcnewbooking";
+             
+        }
+
+    }
+    
+    private Room findAvailableRoom(LocalDate checkInDate, LocalDate checkOutDate, String roomType) {
+        List<Room> rooms = roomRepository.findByType(roomType);
+
+        for (Room room : rooms) {
+            int bookingsCount = lodgingRepository.countBookingsForRoomWithinDateRange(room.getId(), checkInDate, checkOutDate);
+
+            if (bookingsCount == 0) {
+                return room;
+            }
+        }
+
+        return null;
+    }
+    
+
+    @GetMapping("/logs/delete/{id}")
+    public String deleteBookingVC(@PathVariable(value = "id") Long id) {
+        lodgingRepository.deleteById(id);
+        return "redirect:/vcbooking";
+    }
+    
+    
+    
+   
 
 
     
-    
-
 
 
 

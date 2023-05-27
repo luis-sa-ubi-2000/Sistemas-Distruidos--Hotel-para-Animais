@@ -67,7 +67,7 @@
     <p th:text="${errorMessage}"></p>
 </div>
     
-  <form action="#" th:action="@{/vcsaveLodging}" th:object="${new_lodging}" method="POST">
+  <form action="#" th:action="@{/vcsaveLodging}" th:object="${update_lodging}" method="POST">
     <label for="checkInDate">Check-In Date:</label>
     <input type="date" th:field="*{checkInDate}" required>
     <br>
