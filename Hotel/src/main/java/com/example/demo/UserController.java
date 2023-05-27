@@ -183,42 +183,31 @@ public class UserController {
     }
     
     @PostMapping("/vcsavePet")
-    public String savePetVC(@ModelAttribute("new_pet") Pet pet, HttpSession session) {
+    public String savePetVC(@ModelAttribute("new_pet") Pet updatedPet, HttpSession session) {
         User user = (User) session.getAttribute("client");
         List<Client> clientList = new ArrayList<>();
         Client client = null;
         clientRepository.findAll().forEach(clientList::add);
         int clientCount = clientList.size();
-        for(int i = 0; i < clientCount; i++) {
-            if(clientList.get(i).getUser() != null) {
-                if(clientList.get(i).getUser().getId() == user.getId()) {
+        for (int i = 0; i < clientCount; i++) {
+            if (clientList.get(i).getUser() != null) {
+                if (clientList.get(i).getUser().getId() == user.getId()) {
                     client = clientList.get(i);
                 }
             }
         }
 
-        pet.setClient(client); // Assign the client to the pet object
+        Pet existingPet = petRepository.findById(updatedPet.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid pet ID"));
 
-        if (pet.getId() == null) {
-            // Create a new pet
-            petRepository.save(pet);
-        } else {
-            // Update an existing pet
-            Pet existingPet = petRepository.findById(pet.getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid pet ID"));
+        // Update the existing pet with the new values
+        existingPet.setAge(updatedPet.getAge());
+        existingPet.setName(updatedPet.getName());
+        existingPet.setRace(updatedPet.getRace());
+        existingPet.setSpecie(updatedPet.getSpecie());
+        existingPet.setClient(client);
 
-            // Check if any property has changed
-            if (!existingPet.equals(pet)) {
-                // Update the existing pet with the new values
-                existingPet.setAge(pet.getAge());
-                existingPet.setName(pet.getName());
-                existingPet.setRace(pet.getRace());
-                existingPet.setSpecie(pet.getSpecie());
-                existingPet.setClient(client);
-
-                petRepository.save(existingPet);
-            }
-        }
+        petRepository.save(existingPet);
 
         return "redirect:/mainpageclient";
     }

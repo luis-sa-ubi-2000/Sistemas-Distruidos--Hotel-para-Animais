@@ -46,10 +46,8 @@
       background-color: #45a049;
   }
 </style>
-<body>
-  <h1>Update Pet Information</h1>
-    
-  <form action="#" th:action="@{/vcsavePet}" th:object="${update_pet}" method="POST">
+<form action="#" th:action="@{/vcsavePet}" th:object="${update_pet}" method="POST">
+    <input type="hidden" th:field="*{id}"> <!-- Add a hidden input field for the pet's ID -->
     <label for="age">Age:</label>
     <input type="number" th:field="*{age}" placeholder="Age" required>
     <input type="text" th:field="*{name}" placeholder="Name" required>
@@ -57,6 +55,7 @@
     <input type="text" th:field="*{specie}" placeholder="Specie" required>
     <button type="submit">Save Pet</button>
 </form>
+
 
 
 
