@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.Feeding;
-import com.example.demo.model.Room;
-import com.example.demo.repository.FeedingRepository;
-import com.example.demo.repository.RoomRepository;
+import com.example.demo.Feeding;
+import com.example.demo.Room;
+import com.example.demo.FeedingRepository;
+import com.example.demo.RoomRepository;
 
 @Service
 public class FeedingService {
