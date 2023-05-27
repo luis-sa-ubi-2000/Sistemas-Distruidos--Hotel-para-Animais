@@ -199,6 +199,7 @@ form button[type="submit"]:hover {
 
     <h2>Pet's list</h2>
 
+    <a class="change-info-link" th:href="@{/showVCNewPetForm}"> Add Pet</a>
     <div th:if="${pets != null}">
       <table>
           <tr>
@@ -217,12 +218,12 @@ form button[type="submit"]:hover {
             </td>
         </tr>        
       </table>
-      <a class="change-info-link" th:href="@{/showVCNewPetForm}"> Add Pet</a>
+
   </div>
   
 
     <div th:if="${pets == null}">
-        <h3>No pets</h3>
+        <h3>No pets associated</h3>
     </div>
 </div>
 </body>
