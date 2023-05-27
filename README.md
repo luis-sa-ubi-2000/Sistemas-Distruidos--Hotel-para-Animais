@@ -15,7 +15,7 @@ Trabalho prático de SD - Aplicação Web em Jakarta EE, usando a framework Spri
 
 ### Conjuntos de Estatísticas
 - [ ] Número de hospedagens por espécie de animal. [João]
-- [ ] Receita gerada por tipo de serviço. [Luís]
+- [ ] Top 3 espécie de animais que mais visitam o nosso hotel. [Luís]
 - **Extra** -> Número de agendamentos de serviços por cliente.
 
 
