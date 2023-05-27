@@ -239,6 +239,59 @@ public class MainController {
 			model.addAttribute("ListRooms" , roomRepository.findAll());
 			return "update_lodging";
 		}
+	
+		// 2.2 ----- Feeding -------
+		
+		@GetMapping(path="/showFeeding")
+		public String showFeeding(Model model) {
+			model.addAttribute("ListFeeding" , feedingRepository.findAll());
+			return "feeding";
+		}
+		
+		@GetMapping("/showNewFeedingForm")
+		public String showNewFeedingForm(Model model) {
+		 List<String> listTypeFood = feedingService.listTypeFood();
+		 model.addAttribute("ListPets" , petRepository.findAll());
+		 Feeding feed = new Feeding();
+		 model.addAttribute("new_feeding", feed);
+		 model.addAttribute("ListTypeFood", listTypeFood);
+		 return "new_feeding";
+		}
+		
+		
+		
+		@PostMapping("/saveFeeding")
+		public String saveFeeding (@ModelAttribute("newfeeding") Feeding feed ) {
+			// save feed to database
+			feedingRepository.save(feed);
+			return "redirect:/showFeeding";
+		}
+		
+		
+		@GetMapping("/deleteFeeding/{id}")
+		public String deleteFeeding(@PathVariable(value = "id") Long id) {
+		 feedingRepository.deleteById(id);
+			return "redirect:/showFeeding";
+		}
+		
+		
+		
+		@GetMapping("/showUpdateFeedingForm/{id}")
+		public String showUpdateFeedingForm(@PathVariable(value = "id") Long id, Model model) {
+			Optional <Feeding> optional = feedingRepository.findById(id);
+			List<String> listTypeFood = feedingService.listTypeFood();
+			Feeding feed = null;
+			if (optional.isPresent()) {
+				feed = optional.get();
+			} else {
+				throw new RuntimeException(" Feeding not found for id :: " + id);
+			}
+			// set pet as a model attribute to pre-populate the form
+			model.addAttribute("update_feed", feed);
+			model.addAttribute("ListPets" , petRepository.findAll());
+			model.addAttribute("ListTypeFood", listTypeFood);
+			return "update_feeding";
+		}
 
 		
 		// 3. ---------------------  Statistics  ----------------------------------
