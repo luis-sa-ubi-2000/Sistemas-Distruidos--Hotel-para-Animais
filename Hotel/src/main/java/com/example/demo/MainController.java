@@ -42,6 +42,18 @@ public class MainController {
 	@Autowired
 	private RoomRepository roomRepository;
 	
+	private final RoomService roomService;
+	
+	private final FeedingService feedingService;
+	
+	@Autowired
+	private FeedingRepository feedingRepository;
+	
+    public MainController(RoomService roomService, FeedingService feedingService) {
+        this.roomService = roomService;
+        this.feedingService = feedingService;
+    }
+	
 	
 	@GetMapping(path="/")
 	public String showMainPage(Model model) {
