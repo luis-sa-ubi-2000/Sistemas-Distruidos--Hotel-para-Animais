@@ -49,6 +49,30 @@
       font-weight: bold;
       color: #333333;
   }
+
+  .reserve_link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ffcc00;
+  color: #fff;
+  text-decoration: none;
+  margin-top: 10px;
+  border-radius: 4px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.reserve_link:hover {
+  background-color: #ff9900;
+}
+.delete-link {
+  color: red;
+  text-decoration: none;
+}
+
+.delete-link:hover {
+  text-decoration: underline;
+}
 </style>
 <body>
     <h1>Booking Page</h1>
@@ -80,7 +104,7 @@
           </td>
       </tr>
   </table>
-    
+  <a class="reserve_link" th:href="@{/showVCNewBookingForm}">Reserve Now</a>
     <h2>Booking's List </h2>
 <table>
     <thead>

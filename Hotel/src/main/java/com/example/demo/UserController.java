@@ -159,6 +159,21 @@ public class UserController {
         petRepository.deleteById(id);
         return "redirect:/mainpageclient";
     }
+    
+    @GetMapping("/vcupdatepet/{petId}")
+    public String showUpdatePetPageVC(@PathVariable("petId") Long petId, Model model) {
+        // Retrieve the client from the database based on the provided clientId
+        Pet pet = petRepository.findById(petId).orElse(null);
+        
+        if (pet != null) {
+            model.addAttribute("update_pet", pet);
+            return "vcupdatepet";
+        } else {
+            // Client not found, handle the error accordingly
+            // You can redirect to an error page or display an error message
+            return "error";
+        }
+    }
 
     
     @GetMapping("/showVCNewPetForm")
@@ -192,25 +207,29 @@ public class UserController {
             Pet existingPet = petRepository.findById(pet.getId())
                     .orElseThrow(() -> new IllegalArgumentException("Invalid pet ID"));
 
-            // Update the existing pet with the new values
-            existingPet.setAge(pet.getAge());
-            existingPet.setName(pet.getName());
-            existingPet.setRace(pet.getRace());
-            existingPet.setSpecie(pet.getSpecie());
-            existingPet.setClient(client);
+            // Check if any property has changed
+            if (!existingPet.equals(pet)) {
+                // Update the existing pet with the new values
+                existingPet.setAge(pet.getAge());
+                existingPet.setName(pet.getName());
+                existingPet.setRace(pet.getRace());
+                existingPet.setSpecie(pet.getSpecie());
+                existingPet.setClient(client);
 
-            petRepository.save(existingPet);
+                petRepository.save(existingPet);
+            }
         }
 
         return "redirect:/mainpageclient";
     }
+
+
     
     
     @GetMapping("/vcbooking")
     public String showBookingPage(Model model, HttpSession session) {
         User user = (User) session.getAttribute("client");
-        
-        int enc = 0;
+
 
         if (user == null) {
             // Handle the case where the user is not logged in
