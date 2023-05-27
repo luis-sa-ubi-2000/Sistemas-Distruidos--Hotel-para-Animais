@@ -15,6 +15,19 @@ public class User {
     
     @Enumerated(EnumType.STRING)
     private UserRole role;
+    
+    @OneToOne(mappedBy = "user")
+    private Client client;
+    
+    
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
 	public long getId() {
 		return id;

@@ -64,13 +64,17 @@ button[type="submit"]:hover {
 
 /* Estilize os links como botões */
 a {
-  display: inline-block;
+  display: flex;
   padding: 0.5em 1em;
   background-color: #0077cc;
   color: #fff;
+  justify-content: center;
   text-align: center;
+  align-items: center;
   text-decoration: none;
   border-radius: 0.25em;
+  align-items: center;
+  
 }
 
 label {
@@ -157,7 +161,7 @@ thead {
 </head>
 <body>
 <div>
-  <a th:href="@{/}" class="back-to-main-button">
+  <a th:href="@{/mainpage}" class="back-to-main-button">
     <i class="fas fa-arrow-left"></i>
     Back to Main Menu
   </a>
