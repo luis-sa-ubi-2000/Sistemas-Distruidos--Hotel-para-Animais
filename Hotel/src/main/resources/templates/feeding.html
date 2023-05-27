@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Pet Hotel - Pet's Page</title>
+ <style>
+/* Define as fontes e cores padrão */
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Estilize os títulos */
+h1, h2 {
+  text-align: center;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+
+/* Estilize os links como botões */
+a {
+  display: inline-block;
+  padding: 0.5em 1em;
+  background-color: #0077cc;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 0.25em;
+}
+
+
+a:hover {
+  background-color: #005ea8;
+}
+
+/* Adicione um pouco de espaço entre os botões */
+a + a {
+  margin-left: 1em;
+}
+
+/* Estilize a tabela */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+thead {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table-responsive-md {
+  overflow-x: auto;
+}
+
+/* Adicione um pouco de espaçamento */
+.mb-2 {
+  margin-bottom: 1rem;
+}
+
+.add-customer-link {
+  margin-bottom: 10px;
+}
+
+.back-to-main-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5em;
+            background-color: #000000;
+            color: #fbfbfb;
+            text-decoration: none;
+            border: none;
+            border-radius: 0.25em;
+            cursor: pointer;
+      }
+
+      .back-to-main-button:hover {
+          background-color: #005ea8;
+      }
+
+          .back-to-main-button:active {
+            background-color: #003d80;
+          }
+
+          .back-to-main-button i {
+            margin-right: 0.5em;
+          }
+
+</style>
+</head>
+<body>
+<div>
+  <a th:href="@{/}" class="back-to-main-button">
+    <i class="fas fa-arrow-left"></i>
+    Back to Main Menu
+  </a>
+ 	<h1> Feeding List </h1>
+ 	<a th:href="@{/showNewFeedingForm}"  class="add-customer-link"> Add Feeding</a>
+ 	<table border="1" class="table table-striped table-responsive-md">
+ 		<thead>
+ 			<tr>
+ 				<th>Pet Name</th>
+        <th>Pet Race</th>
+ 				<th>Pet Age</th>
+        <th>Type of Food</th>
+ 			</tr>
+ 		</thead>
+ 		<tbody>
+ 			<tr th:each="feeding : ${ListFeeding}">
+ 				<td th:text="${feeding.pet.name}"></td>
+        <td th:text="${feeding.pet.race}"></td>
+        <td th:text="${feeding.pet.age}"></td>
+        <td th:text="${feeding.typeFood}"></td>
+ 				<td>
+ 					<a th:href="@{/showUpdateFeedingForm/{id}(id=${feeding.id})}" >Update</a>
+ 					<a th:href="@{/deleteFeeding/{id}(id=${feeding.id})}" >Delete</a>
+ 				</td>
+ 			</tr>
+ 		</tbody>
+ 	</table>
+</div>
+</body>
+</html>
