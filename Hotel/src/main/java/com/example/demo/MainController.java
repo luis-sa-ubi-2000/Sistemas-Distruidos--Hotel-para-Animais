@@ -162,42 +162,57 @@ public class MainController {
 		@GetMapping("/showRoom")
 		public String showRoom(Model model) {
 			model.addAttribute("ListRooms" , roomRepository.findAll());
-			return "room";
+			return "rooms";
 		}
 		
+	
 		@GetMapping("/showNewRoomForm")
 		public String showNewRoomForm(Model model) {
-		 model.addAttribute("ListRoom" , roomRepository.findAll());
+	        List<String> listType = roomService.listType();
+	        List<String> listDisponibility = roomService.listDisponibility();
+	        List<String> listPrice = roomService.listPrice();
 		 Room room = new Room();
 		 model.addAttribute("new_room", room);
+		 model.addAttribute("ListType", listType);
+		 model.addAttribute("ListDisponibility",listDisponibility);
+		 model.addAttribute("ListPrice",listPrice);
 		 return "new_room";
 		}
-		
+			
 		
 		@PostMapping("/saveRoom")
 		public String saveRoom (@ModelAttribute("newroom") Room room ) {
+			// save room to database
 			roomRepository.save(room);
 			return "redirect:/showRoom";
 		}
 		
+		
+		
 		@GetMapping("/deleteRoom/{id}")
 		public String deleteRoom(@PathVariable(value = "id") Long id) {
-			roomRepository.deleteById(id);
+		 roomRepository.deleteById(id);
 			return "redirect:/showRoom";
 		}
-		
-		
+			
 		
 		@GetMapping("/showUpdateRoomForm/{id}")
 		public String showUpdateRoomForm(@PathVariable(value = "id") Long id, Model model) {
 			Optional <Room> optional = roomRepository.findById(id);
+	        List<String> listType = roomService.listType();
+	        List<String> listDisponibility = roomService.listDisponibility();
+	        List<String> listPrice = roomService.listPrice();
 			Room room = null;
 			if (optional.isPresent()) {
 				room = optional.get();
 			} else {
 				throw new RuntimeException(" Room not found for id :: " + id);
 			}
+			// set room as a model attribute to pre-populate the form
 			model.addAttribute("update_room", room);
+			 model.addAttribute("ListType", listType);
+			 model.addAttribute("ListDisponibility",listDisponibility);
+			 model.addAttribute("ListPrice",listPrice);
 			return "update_room";
 		}
 
