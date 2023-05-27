@@ -183,7 +183,27 @@ public class UserController {
     }
     
     @PostMapping("/vcsavePet")
-    public String savePetVC(@ModelAttribute("new_pet") Pet updatedPet, HttpSession session) {
+    public String savePetVC(@ModelAttribute("new_pet") Pet pet, HttpSession session) {
+        User user = (User) session.getAttribute("client");
+        List<Client> clientList = new ArrayList<>();
+        Client client = null;
+        clientRepository.findAll().forEach(clientList::add);
+        int clientCount = clientList.size();
+        for(int i = 0; i < clientCount; i++) {
+            if(clientList.get(i).getUser() != null) {
+                if(clientList.get(i).getUser().getId() == user.getId()) {
+                    client = clientList.get(i);
+                }
+            }
+        }
+
+        pet.setClient(client); // Assign the client to the pet object
+        petRepository.save(pet);
+        return "redirect:/mainpageclient";
+    }
+    
+    @PostMapping("/vcsaveupdatePet")
+    public String savePetUpdateVC(@ModelAttribute("new_pet") Pet updatedPet, HttpSession session) {
         User user = (User) session.getAttribute("client");
         List<Client> clientList = new ArrayList<>();
         Client client = null;
@@ -268,6 +288,35 @@ public class UserController {
 
         return "vcbooking";
     }
+    
+    
+    @GetMapping("/showVCNewBookingForm")
+    public String showNewBookingForm(Model model, HttpSession session) {
+    	User user = (User) session.getAttribute("client");
+        List<Client> clientList = new ArrayList<>();
+        Client client = null;
+        clientRepository.findAll().forEach(clientList::add);
+        int clientCount = clientList.size();
+        for (int i = 0; i < clientCount; i++) {
+            if (clientList.get(i).getUser() != null) {
+                if (clientList.get(i).getUser().getId() == user.getId()) {
+                    client = clientList.get(i);
+                }
+            }
+        }
+        
+        
+    	 model.addAttribute("ListPetsU" , client.getPets());
+		 Lodging lodg = new Lodging();
+		 model.addAttribute("new_lodging", lodg);
+		 return "vcnewbooking";
+    }
+    
+    @PostMapping("/vcsaveLodging")
+	public String vcsaveLodging (@ModelAttribute("newlodging") Lodging lodg ) {
+		lodgingRepository.save(lodg);
+		return "redirect:/showLodgings";
+	}
 
 
 
