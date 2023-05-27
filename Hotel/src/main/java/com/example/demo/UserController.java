@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,9 @@ public class UserController {
     @Autowired
     private PetRepository petRepository;
     
+    @Autowired
+    private LodgingRepository lodgingRepository;
+  
 
     
 
@@ -200,6 +204,63 @@ public class UserController {
 
         return "redirect:/mainpageclient";
     }
+    
+    
+    @GetMapping("/vcbooking")
+    public String showBookingPage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("client");
+        
+        int enc = 0;
+
+        if (user == null) {
+            // Handle the case where the user is not logged in
+            // You can redirect the user to a login page or display an error message
+            return "redirect:/login"; // Replace with your desired redirection URL
+        }
+
+        List<Client> clientList = new ArrayList<>();
+        Client client = null;
+        clientRepository.findAll().forEach(clientList::add);
+        int clientCount = clientList.size();
+        for (int i = 0; i < clientCount; i++) {
+            if (clientList.get(i).getUser() != null) {
+                if (clientList.get(i).getUser().getId() == user.getId()) {
+                    client = clientList.get(i);
+                }
+            }
+        }
+
+        // Search for every booking
+        Iterable<Lodging> iterableLodgings = lodgingRepository.findAll();
+        List<Lodging> listLodgings = new ArrayList<>();
+        iterableLodgings.forEach(listLodgings::add);
+        
+        
+        LocalDate currentDate = LocalDate.now();
+        for(int i = 0; i < listLodgings.size(); i++) {
+        	if(listLodgings.get(i).getCheckInDate().isBefore(currentDate)) {
+        		listLodgings.remove(listLodgings.get(i));
+        	}
+        	
+        }
+
+       
+        // Search for every booking correspondent to user in session
+        List<Lodging> listLodgingsClient = new ArrayList<>();
+        for (int i = 0; i < listLodgings.size(); i++) {
+            if (listLodgings.get(i).getPet().getClient().getUser() != null &&
+                    listLodgings.get(i).getPet().getClient().getUser().getId() == user.getId()) {
+                listLodgingsClient.add(listLodgings.get(i));
+            }
+        }
+   
+        model.addAttribute("listLodgingsClient", listLodgingsClient);
+   
+
+
+        return "vcbooking";
+    }
+
 
 
 

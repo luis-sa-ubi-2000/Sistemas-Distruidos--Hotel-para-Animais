@@ -27,5 +27,7 @@ public interface PetRepository extends CrudRepository<Pet, Long>{
 	    List<Object[]> findPetSpeciesCountByLodgingDate(
 	            @Param("startDate") LocalDate startDate,
 	            @Param("endDate") LocalDate endDate);
+	    
+	    
 	
 }
