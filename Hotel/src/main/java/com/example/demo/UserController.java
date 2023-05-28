@@ -285,8 +285,23 @@ public class UserController {
             }
         }
         
+        // Search for every feeding
+        Iterable<Feeding> iterableFeedings = feedingRepository.findAll();
+        List<Feeding> listFeedings = new ArrayList<>();
+        iterableFeedings.forEach(listFeedings::add);
         
-    	 model.addAttribute("ListPets" , client.getPets());
+        // Search for every pet
+        List<Pet> clientpet;
+        clientpet =  client.getPets();
+        
+        for(int i = 0; i < listFeedings.size(); i++) {
+        	clientpet.remove(listFeedings.get(i).getPet());
+        }
+            
+        
+        
+        
+    	 model.addAttribute("ListPets" , clientpet);
 		 Feeding fed = new Feeding();
 		 model.addAttribute("new_feeding", fed);
 		 return "vcnewfeeding";

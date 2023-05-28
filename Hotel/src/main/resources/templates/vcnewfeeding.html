@@ -86,21 +86,24 @@ option {
     <p th:text="${errorMessage}"></p>
 </div>
     
-<form action="#" th:action="@{/vcsaveFeeding}" th:object="${new_feeding}" method="POST">
+<form action="#" th:action="@{/saveFeeding}" th:object="${new_feeding}" method="POST" th:if="${ListPets != null and ListPets.size() > 0}">
   <label for="petName">Pet Name:</label>
   <select id="petId" name="petId" th:field="*{pet.id}" required>
-      <option value="">Select pet name</option>
-      <option th:each="pet: ${ListPets}" th:value="${pet.id}" th:text="${pet.name}" required></option>
+    <option value="">Select pet name</option>
+    <option th:each="pet: ${ListPets}" th:value="${pet.id}" th:text="${pet.name}" required></option>
   </select><br>
- <label>Type of food</label>
- <select id="type" name="type" th:field="*{typeFood}" required>
-  <option value="">Select the food's type</option>
-  <option value="Dry Food">Dry Food</option>
-  <option value="Canned Food">Canned Food</option>
-  <option value="Raw Food">Raw Food</option>
-</select>
+  <label>Type of food</label>
+  <select id="type" name="type" th:field="*{typeFood}" required>
+    <option value="">Select the food's type</option>
+    <option value="Dry Food">Dry Food</option>
+    <option value="Canned Food">Canned Food</option>
+    <option value="Raw Food">Raw Food</option>
+  </select>
   <button type="submit">Register Feeding</button>
 </form>
+<div th:unless="${ListPets != null and ListPets.size() > 0}">
+  <p>No pets available to select.</p>
+</div>
 
 
 </div>
