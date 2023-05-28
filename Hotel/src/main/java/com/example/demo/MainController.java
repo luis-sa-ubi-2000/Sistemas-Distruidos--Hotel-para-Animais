@@ -283,22 +283,21 @@ public class MainController {
 	
 	// 3.2 -------------------- MostRequestedTypeOfFoodPerSpecie --------------------------
 	
-    
-				@GetMapping("/showTypeOfFoodStatistics")
-				public String mostRequestTypeOfFood(Model model) {
-					
-					List<Object[]> results = feedingRepository.mostRequestedTypeOfFoodBySpecie();
+	@GetMapping("/showTypeOfFoodStatistics")
+	public String mostRequestTypeOfFood(Model model) {
 
-			        List<StatisticFood> statisticFoodBySpecies = new ArrayList<>();
-			        for (Object[] result : results) {
-			        	StatisticFood statisticFoodBySpecie = new StatisticFood();
-			        	statisticFoodBySpecie.setSpecie((String) result[0]);
-			        	statisticFoodBySpecie.settypeFood((String) result[1]);
-			        	statisticFoodBySpecies.add(statisticFoodBySpecie);
-			        }
-			        
-					model.addAttribute("feedingStatistic", statisticFoodBySpecies);
-					return "statistic_feeding";
-				}
+		List<Object[]> results = feedingRepository.countPetsByTypeFood();
+
+		List<StatisticSpecie> statisticSpecieCounts = new ArrayList<>();
+		for (Object[] result : results) {
+			StatisticSpecie statisticSpecieCount = new StatisticSpecie();
+			statisticSpecieCount.setSpecie((String) result[0]);
+			statisticSpecieCount.setCount((Long) result[1]);
+			statisticSpecieCounts.add(statisticSpecieCount);
+		}
+
+		model.addAttribute("feedingStatistic", statisticSpecieCounts);
+		return "statistic_feeding";
+	}
 	
 }

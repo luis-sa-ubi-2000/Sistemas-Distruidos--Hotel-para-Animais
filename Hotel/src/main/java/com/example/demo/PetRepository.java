@@ -28,5 +28,23 @@ public interface PetRepository extends CrudRepository<Pet, Long>{
 	            @Param("startDate") LocalDate startDate,
 	            @Param("endDate") LocalDate endDate);
 	    
+	    @Query(value = "SELECT p.specie, f.type_food " +
+                "FROM db_hotel.pet AS p " +
+                "JOIN db_hotel.feeding AS f ON p.id = f.id_pet " +
+                "GROUP BY p.specie, f.type_food " +
+                "HAVING COUNT(*) = (" +
+                "  SELECT MAX(count_per_species) " +
+                "  FROM (" +
+                "    SELECT p.specie, f.type_food, COUNT(*) AS count_per_species " +
+                "    FROM db_hotel.pet AS p " +
+                "    JOIN db_hotel.feeding AS f ON p.id = f.id_pet " +
+                "    GROUP BY p.specie, f.type_food " +
+                "  ) AS counts " +
+                "  WHERE counts.specie = p.specie" +
+                ")", nativeQuery = true)
+	    	List<Object[]> findSpeciesWithMaxFeedingCount();
+
+	    
+	    
 	
 }
