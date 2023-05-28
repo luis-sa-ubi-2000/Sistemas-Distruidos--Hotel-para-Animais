@@ -28,6 +28,5 @@ public interface PetRepository extends CrudRepository<Pet, Long>{
 	            @Param("startDate") LocalDate startDate,
 	            @Param("endDate") LocalDate endDate);
 	    
-	    
 	
 }

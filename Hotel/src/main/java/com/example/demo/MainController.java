@@ -233,6 +233,8 @@ public class MainController {
 
 
 	// 3. --------------------- Statistics ----------------------------------
+	
+	// 3.1 -------------------- LodgingCountBySpecie --------------------------
 
 	@GetMapping("/showSpeciesStatistics")
 	public String countLodgingsBySpecies(Model model) {
@@ -278,5 +280,25 @@ public class MainController {
 		initDate.setEnd(endDate);
 		return "redirect:/showSpeciesStatistics";
 	}
+	
+	// 3.2 -------------------- MostRequestedTypeOfFoodPerSpecie --------------------------
+	
+    
+				@GetMapping("/showTypeOfFoodStatistics")
+				public String mostRequestTypeOfFood(Model model) {
+					
+					List<Object[]> results = feedingRepository.mostRequestedTypeOfFoodBySpecie();
+
+			        List<StatisticFood> statisticFoodBySpecies = new ArrayList<>();
+			        for (Object[] result : results) {
+			        	StatisticFood statisticFoodBySpecie = new StatisticFood();
+			        	statisticFoodBySpecie.setSpecie((String) result[0]);
+			        	statisticFoodBySpecie.settypeFood((String) result[1]);
+			        	statisticFoodBySpecies.add(statisticFoodBySpecie);
+			        }
+			        
+					model.addAttribute("feedingStatistic", statisticFoodBySpecies);
+					return "statistic_feeding";
+				}
 	
 }
