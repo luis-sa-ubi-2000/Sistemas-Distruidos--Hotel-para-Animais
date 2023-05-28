@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.Objects;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -53,5 +55,25 @@ public class Feeding {
     public String toString() {
         return "Feeding [id=" + id + ", pet=" + pet + ", typeFood=" + typeFood + "]";
     }
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, pet, typeFood);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Feeding other = (Feeding) obj;
+		return Objects.equals(id, other.id) && Objects.equals(pet, other.pet)
+				&& Objects.equals(typeFood, other.typeFood);
+	}
+    
+    
 }
 

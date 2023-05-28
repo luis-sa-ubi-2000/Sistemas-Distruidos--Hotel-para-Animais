@@ -34,6 +34,9 @@ public class UserController {
     
     @Autowired
     private RoomRepository roomRepository;
+    
+    @Autowired
+    private FeedingRepository feedingRepository;
   
   
 
@@ -236,10 +239,67 @@ public class UserController {
 
         return "redirect:/mainpageclient";
     }
-
-
     
+    @GetMapping(path = "/vcfeeding")
+	public String showFeeding(Model model, HttpSession session) {
+    	User user = (User) session.getAttribute("client");
+        List<Client> clientList = new ArrayList<>();
+        Client client = null;
+        clientRepository.findAll().forEach(clientList::add);
+        int clientCount = clientList.size();
+        for (int i = 0; i < clientCount; i++) {
+            if (clientList.get(i).getUser() != null) {
+                if (clientList.get(i).getUser().getId() == user.getId()) {
+                    client = clientList.get(i);
+                }
+            }
+        }
+        
+        // Search for every feeding
+        Iterable<Feeding> iterableFeedings = feedingRepository.findAll();
+        List<Feeding> listFeedings = new ArrayList<>();
+        iterableFeedings.forEach(listFeedings::add);
+        
+        List<Feeding> listFeedingsClient = new ArrayList<>();
+        for(int i = 0; i < listFeedings.size(); i++) {
+        	if(client.getPets().contains(listFeedings.get(i).getPet())) {
+        		listFeedingsClient.add(listFeedings.get(i));
+        	}
+        }
+		model.addAttribute("ListFeeding", listFeedingsClient);
+		return "vcfeeding";
+	}
     
+    @GetMapping("/showVCNewFeedingForm")
+    public String showNewFeedingForm(Model model, HttpSession session) {
+    	User user = (User) session.getAttribute("client");
+        List<Client> clientList = new ArrayList<>();
+        Client client = null;
+        clientRepository.findAll().forEach(clientList::add);
+        int clientCount = clientList.size();
+        for (int i = 0; i < clientCount; i++) {
+            if (clientList.get(i).getUser() != null) {
+                if (clientList.get(i).getUser().getId() == user.getId()) {
+                    client = clientList.get(i);
+                }
+            }
+        }
+        
+        
+    	 model.addAttribute("ListPets" , client.getPets());
+		 Feeding fed = new Feeding();
+		 model.addAttribute("new_feeding", fed);
+		 return "vcnewfeeding";
+    }
+    
+    @PostMapping("/vcsaveFeeding")
+	public String saveFeeding(@ModelAttribute("newfeeding") Feeding feed) {
+		// save feed to database
+		feedingRepository.save(feed);
+		return "redirect:/vcfeeding";
+	}
+    
+
     @GetMapping("/vcbooking")
     public String showBookingPage(Model model, HttpSession session) {
         User user = (User) session.getAttribute("client");
