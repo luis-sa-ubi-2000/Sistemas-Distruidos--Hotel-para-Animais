@@ -20,10 +20,30 @@ public class Client {
     
     private String phone;
     
-    private String email;
-   
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    public Client() {
+		super();
+	}
+    
+    public Client(User user) {
+		super();
+		this.user = user;
+	}
+
+	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Pet> pets;
+    
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
+	private User user;
+
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Long getId() {
 		return id;
@@ -57,13 +77,6 @@ public class Client {
 		this.phone = phone;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public List<Pet> getPets() {
 		return pets;

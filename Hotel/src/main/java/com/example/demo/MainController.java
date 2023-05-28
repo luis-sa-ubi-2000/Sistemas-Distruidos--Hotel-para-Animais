@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller // This means that this class is a Controller
 public class MainController {
@@ -42,23 +45,12 @@ public class MainController {
 	@Autowired
 	private RoomRepository roomRepository;
 	
-	private final RoomService roomService;
-	
-	private final FeedingService feedingService;
-	
-	@Autowired
-	private FeedingRepository feedingRepository;
-	
-    public MainController(RoomService roomService, FeedingService feedingService) {
-        this.roomService = roomService;
-        this.feedingService = feedingService;
-    }
-	
 	
 	@GetMapping(path="/")
 	public String showMainPage(Model model) {
 		return "mainpage";
 	}
+	*/
 
 	// 1. -------------------------  Entidades  --------------------------------------
 	
@@ -227,23 +219,6 @@ public class MainController {
 			return "lodgings";
 		}
 		
-		@GetMapping("/showNewLodgingForm")
-		public String showNewLodgingForm(Model model) {
-		 model.addAttribute("ListPets" , petRepository.findAll());
-		 model.addAttribute("ListRooms" , roomRepository.findAll());
-		 Lodging lodg = new Lodging();
-		 model.addAttribute("new_lodging", lodg);
-		 return "new_lodging";
-		}
-		
-		
-		
-		@PostMapping("/saveLodging")
-		public String saveLodging (@ModelAttribute("newlodging") Lodging lodg ) {
-			lodgingRepository.save(lodg);
-			return "redirect:/showLodgings";
-		}
-		
 		
 		@GetMapping("/deleteLodging/{id}")
 		public String deleteLodging(@PathVariable(value = "id") Long id) {
@@ -265,59 +240,6 @@ public class MainController {
 			model.addAttribute("ListPets" , petRepository.findAll());
 			model.addAttribute("ListRooms" , roomRepository.findAll());
 			return "update_lodging";
-		}
-	
-		// 2.2 ----- Feeding -------
-		
-		@GetMapping(path="/showFeeding")
-		public String showFeeding(Model model) {
-			model.addAttribute("ListFeeding" , feedingRepository.findAll());
-			return "feeding";
-		}
-		
-		@GetMapping("/showNewFeedingForm")
-		public String showNewFeedingForm(Model model) {
-		 List<String> listTypeFood = feedingService.listTypeFood();
-		 model.addAttribute("ListPets" , petRepository.findAll());
-		 Feeding feed = new Feeding();
-		 model.addAttribute("new_feeding", feed);
-		 model.addAttribute("ListTypeFood", listTypeFood);
-		 return "new_feeding";
-		}
-		
-		
-		
-		@PostMapping("/saveFeeding")
-		public String saveFeeding (@ModelAttribute("newfeeding") Feeding feed ) {
-			// save feed to database
-			feedingRepository.save(feed);
-			return "redirect:/showFeeding";
-		}
-		
-		
-		@GetMapping("/deleteFeeding/{id}")
-		public String deleteFeeding(@PathVariable(value = "id") Long id) {
-		 feedingRepository.deleteById(id);
-			return "redirect:/showFeeding";
-		}
-		
-		
-		
-		@GetMapping("/showUpdateFeedingForm/{id}")
-		public String showUpdateFeedingForm(@PathVariable(value = "id") Long id, Model model) {
-			Optional <Feeding> optional = feedingRepository.findById(id);
-			List<String> listTypeFood = feedingService.listTypeFood();
-			Feeding feed = null;
-			if (optional.isPresent()) {
-				feed = optional.get();
-			} else {
-				throw new RuntimeException(" Feeding not found for id :: " + id);
-			}
-			// set pet as a model attribute to pre-populate the form
-			model.addAttribute("update_feed", feed);
-			model.addAttribute("ListPets" , petRepository.findAll());
-			model.addAttribute("ListTypeFood", listTypeFood);
-			return "update_feeding";
 		}
 
 		

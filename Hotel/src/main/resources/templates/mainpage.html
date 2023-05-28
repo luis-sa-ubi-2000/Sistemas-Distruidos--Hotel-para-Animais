@@ -45,13 +45,36 @@ a + a {
   margin-left: 1em;
 }
 
+.header {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+.header p {
+            margin-right: 10px;
+} 
+      
+.header a {
+  background-color: #4e4e4e;
+}
+
+        
+
 
 
 </style>
 
 </head>
 <body>
-	<h1>Welcome to the Pet Hotel</h1>
+  <div class="header">
+    <p><span th:text="${user.email}"></span></p>
+    
+    <a th:href="@{/login}">
+        <i class="fas fa-arrow-left back-icon"></i>
+        Logout
+    </a>
+</div>
+	<h1>Welcome to Hotel Management Page</h1>
 	<h2>Services offered:</h2>
 	<a th:href="@{/showLodgings}">Lodging</a>
 	<a th:href="@{/showFeeding}">Feeding</a>
