@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller // This means that this class is a Controller
 public class MainController {
@@ -201,23 +204,6 @@ public class MainController {
 			return "lodgings";
 		}
 		
-		@GetMapping("/showNewLodgingForm")
-		public String showNewLodgingForm(Model model) {
-		 model.addAttribute("ListPets" , petRepository.findAll());
-		 model.addAttribute("ListRooms" , roomRepository.findAll());
-		 Lodging lodg = new Lodging();
-		 model.addAttribute("new_lodging", lodg);
-		 return "new_lodging";
-		}
-		
-		
-		
-		@PostMapping("/saveLodging")
-		public String saveLodging (@ModelAttribute("newlodging") Lodging lodg ) {
-			lodgingRepository.save(lodg);
-			return "redirect:/showLodgings";
-		}
-		
 		
 		@GetMapping("/deleteLodging/{id}")
 		public String deleteLodging(@PathVariable(value = "id") Long id) {
@@ -225,22 +211,7 @@ public class MainController {
 			return "redirect:/showLodgings";
 		}
 		
-		
-		@GetMapping("/showUpdateLodgingForm/{id}")
-		public String showUpdateLodgingForm(@PathVariable(value = "id") Long id, Model model) {
-			Optional <Lodging> optional = lodgingRepository.findById(id);
-			Lodging lodg = null;
-			if (optional.isPresent()) {
-				lodg = optional.get();
-			} else {
-				throw new RuntimeException(" Lodging not found for id :: " + id);
-			}
-			model.addAttribute("update_lodg", lodg);
-			model.addAttribute("ListPets" , petRepository.findAll());
-			model.addAttribute("ListRooms" , roomRepository.findAll());
-			return "update_lodging";
-		}
-
+	
 		
 		// 3. ---------------------  Statistics  ----------------------------------
 		
