@@ -288,11 +288,11 @@ public class MainController {
 
 		List<Object[]> results = feedingRepository.countPetsByTypeFood();
 
-		List<StatisticSpecie> statisticSpecieCounts = new ArrayList<>();
+		List<StatisticFood> statisticSpecieCounts = new ArrayList<>();
 		for (Object[] result : results) {
-			StatisticSpecie statisticSpecieCount = new StatisticSpecie();
-			statisticSpecieCount.setSpecie((String) result[0]);
-			statisticSpecieCount.setCount((Long) result[1]);
+			StatisticFood statisticSpecieCount = new StatisticFood();
+			statisticSpecieCount.setTypeFood((String) result[0]);
+			statisticSpecieCount.setPetCount((Long) result[1]);
 			statisticSpecieCounts.add(statisticSpecieCount);
 		}
 

@@ -173,8 +173,8 @@ thead {
         <th>Most requested type of food</th>
     </tr>
     <tr th:each="feedingStatistic : ${feedingStatistic}">
-        <td th:text="${feedingStatistic.specie}"></td>
         <td th:text="${feedingStatistic.typeFood}"></td>
+        <td th:text="${feedingStatistic.petCount}"></td>
     </tr>
  		</tbody>
  	</table>

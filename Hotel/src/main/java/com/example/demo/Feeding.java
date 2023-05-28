@@ -12,6 +12,7 @@ public class Feeding {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+   
     @Column(name = "type_of_food")
     private String typeFood;
 
@@ -38,6 +39,8 @@ public class Feeding {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	
 
 	public String getTypeFood() {
 		return typeFood;
