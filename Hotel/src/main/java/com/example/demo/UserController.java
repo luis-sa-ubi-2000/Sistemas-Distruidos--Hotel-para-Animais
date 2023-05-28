@@ -314,6 +314,12 @@ public class UserController {
 		return "redirect:/vcfeeding";
 	}
     
+    @GetMapping("/fed/delete/{id}")
+	public String deleteFeeding(@PathVariable(value = "id") Long id) {
+		feedingRepository.deleteById(id);
+		return "redirect:/vcfeeding";
+	}
+    
     
 
     @GetMapping("/vcbooking")
@@ -392,6 +398,7 @@ public class UserController {
 		 model.addAttribute("new_lodging", lodg);
 		 return "vcnewbooking";
     }
+    
     
     @PostMapping("/vcsaveLodging")
     public String vcsaveLodging(@ModelAttribute("newlodging") Lodging lodg,
