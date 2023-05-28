@@ -314,6 +314,7 @@ public class UserController {
 		return "redirect:/vcfeeding";
 	}
     
+    
 
     @GetMapping("/vcbooking")
     public String showBookingPage(Model model, HttpSession session) {
