@@ -15,7 +15,6 @@ public class Feeding {
     @Column(name = "type_food")
     private String typeFood;
 
-
     // Constructors, getters, and setters
 
     public Feeding() {
@@ -26,34 +25,33 @@ public class Feeding {
         this.typeFood = typeFood;
     }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Pet getPet() {
-		return pet;
-	}
+    public Pet getPet() {
+        return pet;
+    }
 
-	public void setPet(Pet pet) {
-		this.pet = pet;
-	}
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
 
-	public String gettypeFood() {
-		return typeFood;
-	}
+    public String getTypeFood() {
+        return typeFood;
+    }
 
-	public void settypeFood(String typeFood) {
-		this.typeFood = typeFood;
-	}
+    public void setTypeFood(String typeFood) {
+        this.typeFood = typeFood;
+    }
 
-
-	@Override
-	public String toString() {
-		return "Lodging [id=" + id + ", pet=" + pet + ", tipoAlimentacao=" + typeFood + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "Feeding [id=" + id + ", pet=" + pet + ", typeFood=" + typeFood + "]";
+    }
 }
+

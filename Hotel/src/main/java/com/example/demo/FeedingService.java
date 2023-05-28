@@ -13,12 +13,4 @@ public class FeedingService {
     public FeedingService(FeedingRepository feedingRepository) {
         this.feedingRepository = feedingRepository;
     }
-
-    public List<String> listTypeFood() {
-        // Recupere os dados do repositório e retorne apenas o atributo desejado
-        List<Feeding> objetos = (List<Feeding>) feedingRepository.findAll();
-        return objetos.stream()
-                      .map(objeto -> objeto.gettypeFood())
-                      .collect(Collectors.toList());
-    }
 }
