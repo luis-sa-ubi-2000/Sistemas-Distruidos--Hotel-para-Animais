@@ -165,12 +165,12 @@ thead {
     <i class="fas fa-arrow-left"></i>
     Back to Main Menu
   </a>
- 	<h1> Statistic - Most requested type of food by specie</h1>
+ 	<h1> Statistic - Number of menus associated by pet</h1>
  	<table border="1" class="table table-striped table-responsive-md">
  		<thead>
       <tr>
-        <th>Species</th>
-        <th>Most requested type of food</th>
+        <th>Type of Food</th>
+        <th>Pet Count</th>
     </tr>
     <tr th:each="feedingStatistic : ${feedingStatistic}">
         <td th:text="${feedingStatistic.typeFood}"></td>

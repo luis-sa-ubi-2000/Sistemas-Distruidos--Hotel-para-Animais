@@ -1,15 +1,15 @@
 package com.example.demo;
 
 public class StatisticFood {
-    private String typeFood;
+    private String TypeFood;
     private Long petCount;
 
     public String getTypeFood() {
-        return typeFood;
+        return TypeFood;
     }
 
-    public void setTypeFood(String typeFood) {
-        this.typeFood = typeFood;
+    public void setTypeFood(String TypeFood) {
+        this.TypeFood = TypeFood;
     }
 
     public Long getPetCount() {
@@ -19,5 +19,9 @@ public class StatisticFood {
     public void setPetCount(Long petCount) {
         this.petCount = petCount;
     }
+	@Override
+	public String toString() {
+		return "StatisticSpecie [TypeFood=" + TypeFood + ", petCount=" + petCount + "]";
+	}
 }
 
