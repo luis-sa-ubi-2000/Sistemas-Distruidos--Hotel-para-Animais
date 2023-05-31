@@ -86,7 +86,7 @@ option {
     <p th:text="${errorMessage}"></p>
 </div>
     
-<form action="#" th:action="@{/saveFeeding}" th:object="${new_feeding}" method="POST" th:if="${ListPets != null and ListPets.size() > 0}">
+<form action="#" th:action="@{/vcsaveFeeding}" th:object="${new_feeding}" method="POST" th:if="${ListPets != null and ListPets.size() > 0}">
   <label for="petName">Pet Name:</label>
   <select id="petId" name="petId" th:field="*{pet.id}" required>
     <option value="">Select pet name</option>
