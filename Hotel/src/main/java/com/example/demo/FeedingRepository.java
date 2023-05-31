@@ -8,7 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface FeedingRepository extends CrudRepository<Feeding, Long>{
  	
 	
-<<<<<<< Updated upstream
 	@Query("SELECT f.typeFood, COUNT(p.id) AS petCount " +
             "FROM Feeding f " +
             "INNER JOIN f.pet p " +
@@ -17,7 +16,6 @@ public interface FeedingRepository extends CrudRepository<Feeding, Long>{
 
 
 
-=======
 	@Query("SELECT p.specie, f.typeFood " +
 	           "FROM Feeding f " +
 	           "INNER JOIN f.pet p " +
@@ -39,6 +37,6 @@ public interface FeedingRepository extends CrudRepository<Feeding, Long>{
 			"GROUP BY pp.specie, ff.typeFood " +
 			") AS subquery " +
 			") "*/
->>>>>>> Stashed changes
+
 
 }
